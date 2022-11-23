@@ -171,13 +171,14 @@ with right_column:
 # ----------------------------------------------------------------------------------
 # ADDING A PROGRESS BAR FOR LONGER COMPUTATIONS
 # ----------------------------------------------------------------------------------
+st.header('Demo progress bar using time.sleep')
 'Starting a long computation...'
 
 # Add a placeholder
 latest_iteration = st.empty()
 bar = st.progress(0)
 
-for i in range(100):
+for i in range(10):
   # Update the progress bar with each iteration.
   latest_iteration.text(f'Iteration {i+1}')
   bar.progress(i + 1)
