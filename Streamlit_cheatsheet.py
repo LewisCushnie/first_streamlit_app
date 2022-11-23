@@ -26,23 +26,25 @@ fruit_df = fruit_df.set_index('Fruit')
 streamlit.header('Raw dataframe')
 streamlit.dataframe(fruit_df)
 
-# Let's put a pick list here so they can pick the fruit they want to include 
+# Filtering using a PICK LIST
+streamlit.header('Dataframe filtered using the pick list')
+# Multiselect list
 fruits_selected = streamlit.multiselect("Pick some fruits:", list(fruit_df.index),['Avocado','Strawberries'])
+# filter using panda's .loc
 fruits_to_show = fruit_df.loc[fruits_selected]
 
 # Display the filtered df on the page.
-streamlit.header('Dataframe filtered using the pick list')
 streamlit.dataframe(fruits_to_show)
 
 # ----------------------------------------------------------------------------------
 # WORKING WITH APIS
 # ----------------------------------------------------------------------------------
-streamlit.header("Fruityvice Fruit Advice from API response")
+streamlit.header("Displaying information from an API response")
 
 try:
   fruit_choice = streamlit.text_input('What fruit would you like information about?')
   if not fruit_choice:
-    streamlit.error("Please select a fruit to start")
+    streamlit.error("Please type a fruit to start")
   else:
     # streamlit.write('The user entered ', fruit_choice)
     fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
@@ -53,6 +55,8 @@ try:
 
 except URLError as e:
   streamlit.error()
+
+streamlit.stop()
 
 ## Allow the end user to add a fruit to the list
 #add_my_fruit = streamlit.text_input('What fruit would you like information about?','Kiwi')
