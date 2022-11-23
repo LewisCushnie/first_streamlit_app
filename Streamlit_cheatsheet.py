@@ -1,7 +1,7 @@
 # STREAMLIT CHEAT SHEET WITH WORKING FEATURES AND CODE
 
 # imports
-import streamlit
+import streamlit as st
 import pandas as pd
 import requests
 import snowflake.connector
@@ -22,58 +22,58 @@ This can happen in two situations:
 from urllib.error import URLError
 
 # main titles
-streamlit.title('This is how you add a title')
-streamlit.header('This is how you create a header')
-streamlit.text('This is how you add text')
-streamlit.text('--------------------------------------------------------------------')
+st.title('This is how you add a title')
+st.header('This is how you create a header')
+st.text('This is how you add text')
+st.text('--------------------------------------------------------------------')
 
 # ----------------------------------------------------------------------------------
 # WORKING WITH PANADAS DATAFRAMES 
 # ----------------------------------------------------------------------------------
-streamlit.header('Reading a CSV into a dataframe')
+st.header('Reading a CSV into a dataframe')
 
 # reading a csv into a df
 fruit_df = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 fruit_df = fruit_df.set_index('Fruit')
 
 # Display the raw df on page.
-streamlit.header('Raw dataframe')
-streamlit.dataframe(fruit_df)
+st.header('Raw dataframe')
+st.dataframe(fruit_df)
 
 # Filtering using a PICK LIST
-streamlit.header('Dataframe filtered using the pick list')
+st.header('Dataframe filtered using the pick list')
 # Multiselect list
-fruits_selected = streamlit.multiselect("Pick some fruits:", list(fruit_df.index),['Avocado','Strawberries'])
+fruits_selected = st.multiselect("Pick some fruits:", list(fruit_df.index),['Avocado','Strawberries'])
 # filter using panda's .loc
 fruits_to_show = fruit_df.loc[fruits_selected]
 
 # Display the filtered df on the page.
-streamlit.dataframe(fruits_to_show)
+st.dataframe(fruits_to_show)
 
 # ----------------------------------------------------------------------------------
 # WORKING WITH APIS (AND JSON RESPONSE)
 # ----------------------------------------------------------------------------------
-streamlit.header("Displaying information from an API response")
+st.header("Displaying information from an API response")
 
 try:
-  fruit_choice = streamlit.text_input('What fruit would you like information about?')
+  fruit_choice = st.text_input('What fruit would you like information about?')
 
   # if they haven't typed a fruit
   if not fruit_choice:
-    streamlit.error("Please type a fruit to start")
+    st.error("Please type a fruit to start")
 
   # if they have typed a fruit  
   else:
-    streamlit.write('You entered ', fruit_choice)
+    st.write('You entered ', fruit_choice)
     fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{fruit_choice}")
     # Normalise json response
     fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
     # Output to screen as table
-    streamlit.dataframe(fruityvice_normalized)
+    st.dataframe(fruityvice_normalized)
 
 # If the user types in a wrong input, this will return the error directly from the API
 except URLError as e:
-  streamlit.error()
+  st.error()
 
 # NOTE, when working with booleans, no need to write if value == True, can instead write if value:
 # likewise, rather than if value != true, can write if not value
@@ -89,6 +89,6 @@ map_data = pd.DataFrame(
 
 st.map(map_data)
 
-streamlit.stop()
+st.stop()
 
 
