@@ -83,12 +83,17 @@ except URLError as e:
 # st.map() FOR PLOTTING MAP DATA
 # ----------------------------------------------------------------------------------
 
-n_points = st.slider('Number of points')  # 👈 SLIDER WIDGET
+# Slider widget to change number of data points on map
+n_points = st.selectbox('Number of points') # 👈 SELECTBOX WIDGET
+n_points = st.button('Number of points') # 👈 BUTTON WIDGET
+n_points = st.slider('Number of points') # 👈 SLIDER WIDGET
 
+# Generating points on a map based on coordinates
 map_data = pd.DataFrame(
     np.random.randn(n_points, 2) / [50, 50] + [37.76, -122.4],
     columns=['lat', 'lon'])
 
+# plot the map
 st.map(map_data)
 
 st.stop()
