@@ -83,8 +83,10 @@ except URLError as e:
 # st.map() FOR PLOTTING MAP DATA
 # ----------------------------------------------------------------------------------
 
+n_points = st.slider('Number of points')  # 👈 SLIDER WIDGET
+
 map_data = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    np.random.randn(n_points, 2) / [50, 50] + [37.76, -122.4],
     columns=['lat', 'lon'])
 
 st.map(map_data)
