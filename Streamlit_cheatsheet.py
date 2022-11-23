@@ -13,6 +13,7 @@ Streamlit's architecture allows you to write apps the same way you write plain P
 To unlock this, Streamlit apps have a unique data flow: any time something must be updated 
 on the screen, Streamlit reruns your entire Python script from top to bottom.
 This can happen in two situations:
+
 (1) Whenever you modify your app's source code.
 (2) Whenever a user interacts with widgets in the app. For example, when dragging a slider, entering text in an input box, or clicking a button.
 '''
@@ -96,6 +97,14 @@ map_data = pd.DataFrame(
 
 # plot the map
 st.map(map_data)
+
+# ----------------------------------------------------------------------------------
+# ASSIGNING THE 'KEY' PARAMETER TO A WIDGET ALLOWS THE VARIABLE TO BE ACCESSED
+# ----------------------------------------------------------------------------------
+st.text_input("Your name", key="name")
+
+# You can access the value at any point with:
+st.session_state.name
 
 st.stop()
 
