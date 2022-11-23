@@ -138,6 +138,7 @@ option = st.selectbox(
 # USING SIDEBARS TO KEEP SOME OPTIONS OFF TO THE SIDE
 # ----------------------------------------------------------------------------------
 # Add a selectbox to the sidebar:
+st.sidebar.header('THIS IS THE SIDEBAR AREA')
 add_selectbox = st.sidebar.selectbox(
     'How would you like to be contacted?',
     ('Email', 'Home phone', 'Mobile phone')
@@ -152,6 +153,7 @@ add_slider = st.sidebar.slider(
 # ----------------------------------------------------------------------------------
 # USING COLUMNS TO ORGANISE WIDGETS
 # ----------------------------------------------------------------------------------
+st.header('Use columns to add widgets side by side')
 left_column, right_column = st.columns(2)
 # You can use a column just like st.sidebar:
 left_column.button('Press me!')
