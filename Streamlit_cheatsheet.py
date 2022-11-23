@@ -5,6 +5,17 @@ import streamlit
 import pandas
 import requests
 import snowflake.connector
+import numpy as np
+
+'''
+IMPORTANT NOTE ON STREAMLIT'S Data flow
+Streamlit's architecture allows you to write apps the same way you write plain Python scripts. 
+To unlock this, Streamlit apps have a unique data flow: any time something must be updated 
+on the screen, Streamlit reruns your entire Python script from top to bottom.
+This can happen in two situations:
+(1) Whenever you modify your app's source code.
+(2) Whenever a user interacts with widgets in the app. For example, when dragging a slider, entering text in an input box, or clicking a button.
+'''
 
 # This library returns the error that is presented by a website/api when you put a wrong input
 # e.g https://websitename/page/dhjfdjhdfhjfd would return '404 page not found'
@@ -68,47 +79,16 @@ except URLError as e:
 # likewise, rather than if value != true, can write if not value
 # this also works for string/empty strings, lists/empty lists, etc.
 
+# ----------------------------------------------------------------------------------
+# st.map() FOR PLOTTING MAP DATA
+# ----------------------------------------------------------------------------------
+
+map_data = pd.DataFrame(
+    np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],
+    columns=['lat', 'lon'])
+
+st.map(map_data)
+
 streamlit.stop()
 
-## Allow the end user to add a fruit to the list
-#add_my_fruit = streamlit.text_input('What fruit would you like information about?','Kiwi')
-#streamlit.write('The user entered ', add_my_fruit)
-## my_cur.execute("insert into fruit_load_list values ('from streamlit')")
 
-# Allow the end user to add a fruit to the list
-def insert_row_snowflake(new_fruit):
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("insert into fruit_load_list values ('from streamlit')")
-    return "Thanks for adding" + new_fruit
-    
-add_my_fruit = streamlit.text_input('What fruit would you like to add')
-if streamlit.button('Add a fruit to the list'):
-  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-  back_from_function = insert_row_snowflake(add_my_fruit)
-  streamlit.text(back_from_function)
-
-#my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-#my_cur = my_cnx.cursor()
-#my_cur.execute("select * from fruit_load_list")
-#my_data_rows = my_cur.fetchall()
-#streamlit.header("The fruit load list contains:")
-#streamlit.dataframe(my_data_rows)
-
-streamlit.header("The fruit load list contains:")
-# Snowflake related functions
-def get_fruit_load_list():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from fruit_load_list")
-    return my_cur.fetchall()
-    
-# Add button to load fruit
-if streamlit.button('Get fruit load list'):
-  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-  my_data_rows = get_fruit_load_list()
-  my_cnx.close()
-  streamlit.dataframe(my_data_rows)
-  
-# Stop streamlit from running past this point
-streamlit.stop()
-
-# Test test test
