@@ -5,6 +5,9 @@ import streamlit
 import pandas
 import requests
 import snowflake.connector
+
+# This library returns the error that is presented by a website/api when you put a wrong input
+# e.g https://websitename/page/dhjfdjhdfhjfd would return '404 page not found'
 from urllib.error import URLError
 
 # main titles
@@ -37,24 +40,33 @@ fruits_to_show = fruit_df.loc[fruits_selected]
 streamlit.dataframe(fruits_to_show)
 
 # ----------------------------------------------------------------------------------
-# WORKING WITH APIS
+# WORKING WITH APIS (AND JSON RESPONSE)
 # ----------------------------------------------------------------------------------
 streamlit.header("Displaying information from an API response")
 
 try:
   fruit_choice = streamlit.text_input('What fruit would you like information about?')
+
+  # if they haven't typed a fruit
   if not fruit_choice:
     streamlit.error("Please type a fruit to start")
+
+  # if they have typed a fruit  
   else:
-    # streamlit.write('The user entered ', fruit_choice)
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    streamlit.write('You entered ', fruit_choice)
+    fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{fruit_choice}")
     # Normalise json response
     fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
     # Output to screen as table
     streamlit.dataframe(fruityvice_normalized)
 
+# If the user types in a wrong input, this will return the error directly from the API
 except URLError as e:
   streamlit.error()
+
+# NOTE, when working with booleans, no need to write if value == True, can instead write if value:
+# likewise, rather than if value != true, can write if not value
+# this also works for string/empty strings, lists/empty lists, etc.
 
 streamlit.stop()
 
