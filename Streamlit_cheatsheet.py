@@ -135,7 +135,7 @@ option = st.selectbox(
 'You selected: ', option
 
 # ----------------------------------------------------------------------------------
-# USING SIDEBARS
+# USING SIDEBARS TO KEEP SOME OPTIONS OFF TO THE SIDE
 # ----------------------------------------------------------------------------------
 # Add a selectbox to the sidebar:
 add_selectbox = st.sidebar.selectbox(
@@ -149,7 +149,19 @@ add_slider = st.sidebar.slider(
     0.0, 100.0, (25.0, 75.0)
 )
 
+# ----------------------------------------------------------------------------------
+# USING COLUMNS TO ORGANISE WIDGETS
+# ----------------------------------------------------------------------------------
+left_column, right_column = st.columns(2)
+# You can use a column just like st.sidebar:
+left_column.button('Press me!')
 
+# Or even better, call Streamlit functions inside a "with" block:
+with right_column:
+    chosen = st.radio(
+        'Sorting hat',
+        ("Gryffindor", "Ravenclaw", "Hufflepuff", "Slytherin"))
+    st.write(f"You are in {chosen} house!")
 
 st.stop()
 
