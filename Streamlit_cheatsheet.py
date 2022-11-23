@@ -11,6 +11,7 @@ from urllib.error import URLError
 streamlit.title('This is how you add a title')
 streamlit.header('This is how you create a header')
 streamlit.text('This is how you add text')
+streamlit.text('--------------------------------------------------------------------')
 
 # ----------------------------------------------------------------------------------
 # WORKING WITH PANADAS DATAFRAMES 
