@@ -194,10 +194,10 @@ for i in range(100):
 '''
 When you mark a function with the @st.cache decorator, it tells Streamlit that whenever the function is called it needs to check a few things:
 
-(1) The input parameters that you called the function with\
-(2) The value of any external variable used in the function\
-(3) The body of the function\
-(4) The body of any function used inside the cached function\
+(1) The input parameters that you called the function with
+(2) The value of any external variable used in the function
+(3) The body of the function
+(4) The body of any function used inside the cached function
 (5) If this is the first time Streamlit has seen these four components with these exact values and in this exact combination and order, it 
 runs the function and stores the result in a local cache. Then, next time the cached function is called, if none of these components 
 changed, Streamlit will skip executing the function altogether and, instead, return the output previously stored in the cache.
