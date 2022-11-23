@@ -84,7 +84,8 @@ except URLError as e:
 # ----------------------------------------------------------------------------------
 
 # Slider widget to change number of data points on map
-n_points = st.selectbox('Number of points') # 👈 SELECTBOX WIDGET
+select_box_options = pd.Series([10,20,30,40,50])
+n_points = st.selectbox('Number of points', select_box_options) # 👈 SELECTBOX WIDGET
 n_points = st.button('Number of points') # 👈 BUTTON WIDGET
 n_points = st.slider('Number of points') # 👈 SLIDER WIDGET
 
