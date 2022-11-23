@@ -83,7 +83,6 @@ except URLError as e:
 # ----------------------------------------------------------------------------------
 # st.map() FOR PLOTTING MAP DATA
 # ----------------------------------------------------------------------------------
-
 # Slider widget to change number of data points on map
 select_box_options = pd.Series([10,20,30,40,50])
 n_points = st.selectbox('Number of points', select_box_options) # 👈 SELECTBOX WIDGET
@@ -101,10 +100,24 @@ st.map(map_data)
 # ----------------------------------------------------------------------------------
 # ASSIGNING THE 'KEY' PARAMETER TO A WIDGET ALLOWS THE VARIABLE TO BE ACCESSED
 # ----------------------------------------------------------------------------------
+st.header('Add and display a session variable using the key parameter')
 st.text_input("Your name", key="name")
 
 # You can access the value at any point with:
 st.session_state.name
+
+
+# ----------------------------------------------------------------------------------
+# USE CHECKBOXES TO SHOW/HIDE INFO
+# ----------------------------------------------------------------------------------
+# if the checkbox is ticked > show the dataframe
+if st.checkbox('Show dataframe'):
+    chart_data = pd.DataFrame(
+       np.random.randn(20, 3),
+       columns=['a', 'b', 'c'])
+
+    chart_data
+
 
 st.stop()
 
