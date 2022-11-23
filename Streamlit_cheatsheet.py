@@ -2,7 +2,7 @@
 
 # imports
 import streamlit
-import pandas
+import pandas as pd
 import requests
 import snowflake.connector
 import numpy as np
@@ -33,7 +33,7 @@ streamlit.text('----------------------------------------------------------------
 streamlit.header('Reading a CSV into a dataframe')
 
 # reading a csv into a df
-fruit_df = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
+fruit_df = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 fruit_df = fruit_df.set_index('Fruit')
 
 # Display the raw df on page.
@@ -67,7 +67,7 @@ try:
     streamlit.write('You entered ', fruit_choice)
     fruityvice_response = requests.get(f"https://fruityvice.com/api/fruit/{fruit_choice}")
     # Normalise json response
-    fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
     # Output to screen as table
     streamlit.dataframe(fruityvice_normalized)
 
