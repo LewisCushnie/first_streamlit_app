@@ -110,6 +110,7 @@ st.session_state.name
 # ----------------------------------------------------------------------------------
 # USE CHECKBOXES TO SHOW/HIDE INFO
 # ----------------------------------------------------------------------------------
+st.header('(1) Use a checkbox to show/hide information')
 # if the checkbox is ticked > show the dataframe
 if st.checkbox('Show dataframe'):
     chart_data = pd.DataFrame(
@@ -117,6 +118,22 @@ if st.checkbox('Show dataframe'):
        columns=['a', 'b', 'c'])
 
     chart_data
+
+# ----------------------------------------------------------------------------------
+# USE SELECTBOXES TO PROVIDE OPTIONS
+# ----------------------------------------------------------------------------------
+st.header('(2) Use a selectbox to provide options')
+df = pd.DataFrame({
+    'first column': [1, 2, 3, 4],
+    'second column': [10, 20, 30, 40]
+    })
+
+option = st.selectbox(
+    'Which number do you like best?',
+     df['first column'])
+
+'You selected: ', option
+
 
 
 st.stop()
