@@ -251,19 +251,19 @@ country = [
 #     "https://www.countries-ofthe-world.com/flags-normal/flag-of-India.png",
 #     "https://www.countries-ofthe-world.com/flags-normal/flag-of-Peru.png",
 # ]
-# # Assigning the new list as a new column of the dataframe
-# df["Country"] = country
+# Assigning the new list as a new column of the dataframe
+df["Country"] = country
 
-# # Converting links to html tags
-# def path_to_image_html(path):
-#     return '<img src="' + path + '" width="60" >'
+# Converting links to html tags
+def path_to_image_html(path):
+    return '<img src="' + path + '" width="60" >'
 
-# @st.cache
-# def convert_df(input_df):
-#      # IMPORTANT: Cache the conversion to prevent computation on every rerun
-#      return input_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
+@st.cache
+def convert_df(input_df):
+     # IMPORTANT: Cache the conversion to prevent computation on every rerun
+     return input_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
 
-# html = convert_df(df)
+html = convert_df(df)
 
 # st.markdown(
 #     html,
