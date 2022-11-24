@@ -208,6 +208,10 @@ def my_slow_function(arg1, arg2):
     # Do something really slow in here!
     return the_output
 
+from PIL import Image
+image = Image.open('LEWIS_CUSHNIE.jpg')
+st.image(image, caption='Sunrise by the mountains')
+
 st.stop()
 
 
