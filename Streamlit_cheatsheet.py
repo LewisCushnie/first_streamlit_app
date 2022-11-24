@@ -236,12 +236,14 @@ df = pd.DataFrame(
 )
 
 country = [
-    "LEWIS_CUSHNIE.png",
+    st.image(image, width = 200),
     "LEWIS_CUSHNIE.png",
     "LEWIS_CUSHNIE.png",
     "LEWIS_CUSHNIE.png",
     "LEWIS_CUSHNIE.png"
 ]
+
+df["Country"] = country
 
 st.dataframe(df)
 
