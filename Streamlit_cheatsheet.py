@@ -209,7 +209,7 @@ def my_slow_function(arg1, arg2):
     return the_output
 
 from PIL import Image
-image = Image.open('LEWIS_CUSHNIE.jpg')
+image = Image.open('LEWIS_CUSHNIE.png')
 st.image(image, caption='Sunrise by the mountains')
 
 st.stop()
