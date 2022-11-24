@@ -235,41 +235,49 @@ df = pd.DataFrame(
     ],
 )
 
-# Create a list named country to store all the image paths
 country = [
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-United-States-of-America.png",
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-Brazil.png",
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-Russia.png",
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-India.png",
-    "https://www.countries-ofthe-world.com/flags-normal/flag-of-Peru.png",
+    "LEWIS_CUSHNIE.png",
+    "LEWIS_CUSHNIE.png",
+    "LEWIS_CUSHNIE.png",
+    "LEWIS_CUSHNIE.png",
+    "LEWIS_CUSHNIE.png"
 ]
-# Assigning the new list as a new column of the dataframe
-df["Country"] = country
 
-# Converting links to html tags
-def path_to_image_html(path):
-    return '<img src="' + path + '" width="60" >'
+# # Create a list named country to store all the image paths
+# country = [
+#     "https://www.countries-ofthe-world.com/flags-normal/flag-of-United-States-of-America.png",
+#     "https://www.countries-ofthe-world.com/flags-normal/flag-of-Brazil.png",
+#     "https://www.countries-ofthe-world.com/flags-normal/flag-of-Russia.png",
+#     "https://www.countries-ofthe-world.com/flags-normal/flag-of-India.png",
+#     "https://www.countries-ofthe-world.com/flags-normal/flag-of-Peru.png",
+# ]
+# # Assigning the new list as a new column of the dataframe
+# df["Country"] = country
 
-@st.cache
-def convert_df(input_df):
-     # IMPORTANT: Cache the conversion to prevent computation on every rerun
-     return input_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
+# # Converting links to html tags
+# def path_to_image_html(path):
+#     return '<img src="' + path + '" width="60" >'
 
-html = convert_df(df)
+# @st.cache
+# def convert_df(input_df):
+#      # IMPORTANT: Cache the conversion to prevent computation on every rerun
+#      return input_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
 
-st.markdown(
-    html,
-    unsafe_allow_html=True
-)
+# html = convert_df(df)
 
-# Saving the dataframe as a webpage
+# st.markdown(
+#     html,
+#     unsafe_allow_html=True
+# )
 
-st.download_button(
-     label="Download data as HTML",
-     data=html,
-     file_name='output.html',
-     mime='text/html',
- )
+# # Saving the dataframe as a webpage
+
+# st.download_button(
+#      label="Download data as HTML",
+#      data=html,
+#      file_name='output.html',
+#      mime='text/html',
+#  )
 
 st.stop()
 
