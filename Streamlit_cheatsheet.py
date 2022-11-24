@@ -216,8 +216,22 @@ from PIL import Image
 image = Image.open('LEWIS_CUSHNIE.png')
 st.image(image, caption='Picture of me!', width = 200)
 
-st.title('🎈 Image Table Demo')
+col1, col2, col3, col4 = st.columns(4)
 
+with col1:
+  st.image(image, caption='Picture of me!', width = 200)
+
+with col2:
+  st.image(image, caption='Picture of me!', width = 200)
+
+with col3:
+  st.image(image, caption='Picture of me!', width = 200)
+
+with col4:
+  st.image(image, caption='Picture of me!', width = 200)
+
+
+st.title('🎈 Image Table Demo')
 df = pd.DataFrame(
     [
         [2768571, 130655, 1155027, 34713051, 331002277],
