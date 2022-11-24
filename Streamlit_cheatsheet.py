@@ -213,7 +213,7 @@ def my_slow_function(arg1, arg2):
 # ----------------------------------------------------------------------------------
 
 from PIL import Image
-image = Image.open('LewisCushnie/first_streamlit_app/images/LEWIS_CUSHNIE.png')
+image = Image.open('images/LEWIS_CUSHNIE.png')
 st.image(image, caption='Picture of me!', width = 200)
 
 # images in columns
