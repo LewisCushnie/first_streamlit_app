@@ -214,7 +214,7 @@ def my_slow_function(arg1, arg2):
 
 from PIL import Image
 image = Image.open('LEWIS_CUSHNIE.png')
-st.image(image, caption='Picture of me!', width = 500)
+st.image(image, caption='Picture of me!', width = 200)
 
 st.title('🎈 Image Table Demo')
 
@@ -246,30 +246,30 @@ country = [
 # Assigning the new list as a new column of the dataframe
 df["Country"] = country
 
-# Converting links to html tags
-def path_to_image_html(path):
-    return '<img src="' + path + '" width="60" >'
+# # Converting links to html tags
+# def path_to_image_html(path):
+#     return '<img src="' + path + '" width="60" >'
 
-@st.cache
-def convert_df(input_df):
-     # IMPORTANT: Cache the conversion to prevent computation on every rerun
-     return input_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
+# @st.cache
+# def convert_df(input_df):
+#      # IMPORTANT: Cache the conversion to prevent computation on every rerun
+#      return input_df.to_html(escape=False, formatters=dict(Country=path_to_image_html))
 
-html = convert_df(df)
+# html = convert_df(df)
 
-st.markdown(
-    html,
-    unsafe_allow_html=True
-)
+# st.markdown(
+#     html,
+#     unsafe_allow_html=True
+# )
 
-# Saving the dataframe as a webpage
+# # Saving the dataframe as a webpage
 
-st.download_button(
-     label="Download data as HTML",
-     data=html,
-     file_name='output.html',
-     mime='text/html',
- )
+# st.download_button(
+#      label="Download data as HTML",
+#      data=html,
+#      file_name='output.html',
+#      mime='text/html',
+#  )
 
 st.stop()
 
