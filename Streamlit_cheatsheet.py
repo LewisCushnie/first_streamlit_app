@@ -213,11 +213,11 @@ def my_slow_function(arg1, arg2):
 # ----------------------------------------------------------------------------------
 
 from PIL import Image
-image = Image.open('LEWIS_CUSHNIE.png')
+image = Image.open('LewisCushnie/first_streamlit_app/images/LEWIS_CUSHNIE.png')
 st.image(image, caption='Picture of me!', width = 200)
 
+# images in columns
 col1, col2, col3, col4 = st.columns(4)
-
 with col1:
   st.image(image, caption='Picture of me!', width = 200)
 
