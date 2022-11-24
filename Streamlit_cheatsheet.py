@@ -210,7 +210,7 @@ def my_slow_function(arg1, arg2):
 
 from PIL import Image
 image = Image.open('LEWIS_CUSHNIE.png')
-st.image(image, caption='Picture of me!', width = 100)
+st.image(image, caption='Picture of me!', width = 500)
 
 st.stop()
 
