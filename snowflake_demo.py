@@ -4,8 +4,6 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-st.title('Snowflake Connectivity Demo')
-
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
 @st.experimental_singleton
@@ -24,6 +22,10 @@ def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
+
+#============================= PAGE STARTS =================================
+
+st.title('Snowflake Connectivity Demo')
 
 all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
 st.header("Roles Summary:")

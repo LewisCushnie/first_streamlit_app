@@ -12,6 +12,8 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchall()
 
+#============================= PAGE STARTS =================================
+
 st.title('RBAC Roles Summary')
 
 all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")

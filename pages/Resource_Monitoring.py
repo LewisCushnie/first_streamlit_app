@@ -12,11 +12,25 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchall()
 
+#============================= PAGE STARTS =================================
+
 st.title('Resource Monitoring Summary')
 
 metering = run_query("select name, credits_used from metering_history;")
 st.header("Metering:")
-st.dataframe(metering)
+st.dataframe(metering, width=500)
+
+st.header('Select Warehouse(s):')
+df = pd.DataFrame({
+    'first column': [1, 2, 3, 4],
+    'second column': [10, 20, 30, 40]
+    })
+
+option = st.selectbox(
+    'Which number do you like best?',
+     df['first column'])
+
+'You selected: ', option
 
 # Stop streamlit from running past this point
 st.stop()
