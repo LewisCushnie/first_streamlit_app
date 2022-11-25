@@ -26,8 +26,8 @@ def run_query(query):
         return cur.fetchall()
 
 all_RBAC_roles = run_query("select * from roles;")
-st.header("Roles:")
-st.write(all_RBAC_roles)
+st.header("Roles Summary:")
+st.dataframe(all_RBAC_roles)
 
 # Stop streamlit from running past this point
 st.stop()
