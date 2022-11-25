@@ -1,5 +1,5 @@
 import streamlit as st
-import pandas
+import pandas as pd
 import requests
 import snowflake.connector
 from urllib.error import URLError
@@ -21,10 +21,7 @@ st.header("Metering:")
 st.dataframe(metering, width=500)
 
 st.header('Select Warehouse(s):')
-df = pd.DataFrame({
-    'first column': [1, 2, 3, 4],
-    'second column': [10, 20, 30, 40]
-    })
+df = pd.DataFrame(metering)
 
 option = st.selectbox(
     'Which number do you like best?',
