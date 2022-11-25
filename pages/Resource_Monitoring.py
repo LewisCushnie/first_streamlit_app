@@ -17,8 +17,9 @@ def run_query(query):
 st.title('Resource Monitoring Summary')
 
 metering = run_query("select name, credits_used from metering_history;")
+metering_df = pd.DataFrame(metering, columns= ('WH_Name', 'Credits Used'))
 st.header("Metering:")
-st.dataframe(metering, width=500)
+st.dataframe(metering_df, width=500)
 
 st.header('Select Warehouse(s):')
 
