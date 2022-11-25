@@ -29,6 +29,10 @@ all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;"
 st.header("Roles Summary:")
 st.dataframe(all_RBAC_roles)
 
+metering_history = run_query("select name, credits_used from metering_history;")
+st.header("Metering Summary:")
+st.dataframe(metering_history)
+
 # Stop streamlit from running past this point
 st.stop()
 
