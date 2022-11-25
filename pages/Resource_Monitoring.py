@@ -25,7 +25,7 @@ df = pd.DataFrame(metering)
 
 option = st.selectbox(
     'Which number do you like best?',
-     df['first column'])
+     df['0'])
 
 'You selected: ', option
 
