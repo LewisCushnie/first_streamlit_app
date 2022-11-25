@@ -26,7 +26,6 @@ def run_query(query):
         return cur.fetchall()
 
 all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
-a = all_RBAC_roles
 st.header("Roles Summary:")
 st.dataframe(all_RBAC_roles)
 

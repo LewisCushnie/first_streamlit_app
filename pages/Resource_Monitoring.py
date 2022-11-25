@@ -3,13 +3,20 @@ import pandas
 import requests
 import snowflake.connector
 from urllib.error import URLError
-from snowflake_demo import run_query
+
+# Funtion to perform queries from the database.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
 
 st.title('Resource Monitoring Summary')
 
-all_RBAC_roles = run_query("select name, credits_used from metering_history;")
+metering = run_query("select name, credits_used from metering_history;")
 st.header("Metering:")
-st.dataframe(all_RBAC_roles)
+st.dataframe(metering)
 
 # Stop streamlit from running past this point
 st.stop()
