@@ -6,15 +6,38 @@ from urllib.error import URLError
 
 st.title('Snowflake Connectivity Demo')
 
+# Initialize connection.
+# Uses st.experimental_singleton to only run once.
+@st.experimental_singleton
+def init_connection():
+    return snowflake.connector.connect(
+        **st.secrets["snowflake"], client_session_keep_alive=True
+    )
+
+# Initialize snowflake connection object
+conn = init_connection()
+
+# Funtion to perform queries from the database.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def run_query(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetchall()
+
+rows = run_query("select * from roles;")
+st.header("Roles:")
+st.dataframe(my_data_rows)
+
+# Stop streamlit from running past this point
+st.stop()
+
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("select * from roles")
 my_data_rows = my_cur.fetchall()
 st.header("Roles:")
 st.dataframe(my_data_rows)
-
-# Stop streamlit from running past this point
-st.stop()
 
 # Allow the end user to add a fruit to the list
 def insert_row_snowflake(new_fruit):
