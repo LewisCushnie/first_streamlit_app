@@ -21,11 +21,11 @@ st.header("Metering:")
 st.dataframe(metering, width=500)
 
 st.header('Select Warehouse(s):')
-df = pd.DataFrame(metering)
 
+metering_df = pd.DataFrame(metering, columns= ('WH_Name', 'Credits Used'))
 option = st.selectbox(
     'Which number do you like best?',
-     df.iloc[0])
+     df['WH_Name'])
 
 'You selected: ', option
 
