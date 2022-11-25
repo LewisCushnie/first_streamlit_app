@@ -25,7 +25,7 @@ st.header('Select Warehouse(s):')
 metering_df = pd.DataFrame(metering, columns= ('WH_Name', 'Credits Used'))
 option = st.selectbox(
     'Which number do you like best?',
-     df['WH_Name'])
+     metering_df['WH_Name'])
 
 'You selected: ', option
 
