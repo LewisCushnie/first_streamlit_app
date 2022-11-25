@@ -33,6 +33,10 @@ metering_history = run_query("select name, credits_used from metering_history;")
 st.header("Metering Summary:")
 st.dataframe(metering_history)
 
+databases = run_query("select * from databases;")
+st.header("Databases:")
+st.dataframe(databases)
+
 # Stop streamlit from running past this point
 st.stop()
 
