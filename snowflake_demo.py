@@ -8,7 +8,7 @@ st.title('Snowflake Connectivity Demo')
 
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("select name, credits_used from metering_history")
+my_cur.execute("select * from roles")
 my_data_rows = my_cur.fetchall()
 st.header("Roles:")
 st.dataframe(my_data_rows)
