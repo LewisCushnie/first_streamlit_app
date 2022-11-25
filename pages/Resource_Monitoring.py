@@ -4,5 +4,5 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-streamlit.title('Resource Monitoring Summary')
+st.title('Resource Monitoring Summary')
 

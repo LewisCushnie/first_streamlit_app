@@ -4,7 +4,7 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
-streamlit.title('RBAC Roles Summary')
+st.title('RBAC Roles Summary')
 
 all_RBAC_roles = run_query("select * from roles;")
 st.header("Roles Summary:")
