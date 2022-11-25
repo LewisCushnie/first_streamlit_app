@@ -7,8 +7,8 @@ from urllib.error import URLError
 st.title('Snowflake Connectivity Demo')
 
 # Initialize connection.
-# # Uses st.experimental_singleton to only run once.
-# @st.experimental_singleton
+# Uses st.experimental_singleton to only run once.
+@st.experimental_singleton
 def init_connection():
     return snowflake.connector.connect(
         **st.secrets["snowflake"], client_session_keep_alive=True
@@ -18,14 +18,15 @@ def init_connection():
 conn = init_connection()
 
 # Funtion to perform queries from the database.
-# # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
-# @st.experimental_memo(ttl=600)
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
 def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
 
 all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
+a = all_RBAC_roles
 st.header("Roles Summary:")
 st.dataframe(all_RBAC_roles)
 
