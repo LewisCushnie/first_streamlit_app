@@ -2,10 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 import snowflake.connector
-from urllib.error import URLError
-
-# Initialize snowflake connection object
-conn = init_connection()
+from urllib.error import URLErro
 
 # Funtion to perform queries from the database.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
