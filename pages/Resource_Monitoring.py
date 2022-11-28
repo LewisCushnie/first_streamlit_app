@@ -25,7 +25,7 @@ metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 # metering_top_10_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 
 st.header("Metering:")
-metering_selections = st.multiselect("Select Warehouses:", list(metering_df['Name'].index), ['INTL_WH','COMPUTE_WH'])
+metering_selections = st.multiselect("Select Warehouses:", list(metering_df['Name']))
 # filter using panda's .loc
 fruits_to_show = metering_df.loc[metering_selections]
 
