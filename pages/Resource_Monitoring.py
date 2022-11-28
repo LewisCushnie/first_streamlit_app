@@ -31,6 +31,10 @@ st.title('Resource Monitoring Summary')
 metering = run_query("select name, credits_used from metering_history;")
 metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 
+# Get all warehouses credit usage
+metering = run_query("select top 10 name, credits_used from metering_history;")
+metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
+
 # Get top 10 warehouses credit usage
 # metering_top_10 = run_query("select top 10 name, credits_used from metering_history;")
 # metering_top_10_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
