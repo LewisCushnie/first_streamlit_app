@@ -44,10 +44,8 @@ df = pd.DataFrame(np.random.randn(30,2),columns=['A','B'])
 st.dataframe(metering_df, width=500)
 st.dataframe(metering_top_10_df, width=500)
 
-st.write(df)
-st.write(metering_top_10_df)
 st.bar_chart(df)
-st.bar_chart(Credits_df, width= 500)
+st.bar_chart(data=Credits_df, y= 'Credits Csed', width= 500)
 
 st.header('Select Warehouse(s):')
 
