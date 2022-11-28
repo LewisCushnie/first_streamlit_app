@@ -22,7 +22,7 @@ metering_df = pd.DataFrame(metering, columns= ('WH_Name', 'Credits Used'))
 st.header("Metering:")
 st.dataframe(metering_df, width=500)
 
-st.bar_chart(data=metering_df, x='WH_Name', y='Credits Used', width=500)
+st.bar_chart(data=metering_df, width=500)
 
 st.header('Select Warehouse(s):')
 
