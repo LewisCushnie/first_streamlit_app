@@ -35,6 +35,10 @@ metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 metering_top_10 = run_query("select top 10 name, credits_used from metering_history;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['Name', 'Credits Used'])
 
+df = pd.DataFrame(np.random.randn(30,2),columns=['A','B'])
+st.write(df)
+st.write(metering_top_10_df)
+
 # Display the filtered df on the page
 st.dataframe(metering_df, width=500)
 st.dataframe(metering_top_10_df, width=500)
