@@ -4,6 +4,17 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
+# Initialize connection.
+# Uses st.experimental_singleton to only run once.
+@st.experimental_singleton
+def init_connection():
+    return snowflake.connector.connect(
+        **st.secrets["snowflake"], client_session_keep_alive=True
+    )
+
+# Initialize snowflake connection object
+conn = init_connection()
+
 # Funtion to perform queries from the database.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
 @st.experimental_memo(ttl=600)
