@@ -33,7 +33,7 @@ metering = run_query("select name, credits_used from metering_history;")
 metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 
 # Get top 10 warehouses credit usage
-metering_top_10 = run_query("select top 10 name, credits_used from metering_history;")
+metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['index', 'Credits Used'])
 
 df = pd.DataFrame(np.random.randn(30,2),columns=['A','B'])
