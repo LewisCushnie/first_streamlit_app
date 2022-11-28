@@ -16,19 +16,18 @@ def run_query(query):
 
 st.title('Resource Monitoring Summary')
 
+# Get all warehouses credit usage
 metering = run_query("select name, credits_used from metering_history;")
 metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
+
+# Get top 10 warehouses credit usage
+metering_top_10 = run_query("select top 10 name, credits_used from metering_history;")
+metering_top_10_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 
 st.header("Metering:")
 st.dataframe(metering_df, width=500)
 
-st.bar_chart(data=metering_df, width=500)
-
-chart_data = pd.DataFrame(
-    np.random.randn(20, 3),
-    columns=["a", "b", "c"])
-
-st.bar_chart(chart_data)
+st.bar_chart(data=metering_top_10_df, width=500)
 
 st.header('Select Warehouse(s):')
 
