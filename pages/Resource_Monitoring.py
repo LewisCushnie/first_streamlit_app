@@ -25,6 +25,11 @@ metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 # metering_top_10_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 
 st.header("Metering:")
+metering_selections = st.multiselect("Select Warehouses:", metering_df['Name'], ['INTL_WH','COMPUTE_WH'])
+# filter using panda's .loc
+fruits_to_show = metering_df.loc[metering_selections]
+
+# Display the filtered df on the page
 st.dataframe(metering_df, width=500)
 
 # st.bar_chart(data=metering_top_10_df, width=500)
