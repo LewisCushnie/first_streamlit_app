@@ -35,6 +35,7 @@ metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 # Get top 10 warehouses credit usage
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['index', 'Credits Used'])
+metering_top_10_df.reset_index(drop=True)
 
 df = pd.DataFrame(np.random.randn(30,2),columns=['A','B'])
 
@@ -43,7 +44,7 @@ st.dataframe(metering_df, width=500)
 st.dataframe(metering_top_10_df, width=500)
 
 st.bar_chart(df)
-st.bar_chart(metering_top_10_df['index', 'Credits Used'], x= 'WH_Name', y='Credits Used')
+st.bar_chart(metering_top_10_df, x= 'WH_Name', y='Credits Used')
 
 st.header('Select Warehouse(s):')
 
