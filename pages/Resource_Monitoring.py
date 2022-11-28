@@ -24,11 +24,6 @@ metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 # metering_top_10 = run_query("select top 10 name, credits_used from metering_history;")
 # metering_top_10_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 
-st.header("Metering:")
-metering_selections = st.multiselect("Select Warehouses:", list(metering_df['Name']))
-# filter using panda's .loc
-fruits_to_show = metering_df.loc[metering_selections]
-
 # Display the filtered df on the page
 st.dataframe(metering_df, width=500)
 
