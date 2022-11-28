@@ -45,7 +45,7 @@ st.dataframe(metering_top_10_df, width=500)
 st.write(df)
 st.write(metering_top_10_df)
 st.bar_chart(df)
-st.bar_chart(metering_top_10_df, x= 'Name', y= 'Credits Used', width= 500)
+st.bar_chart(metering_top_10_df['Credits Used'], x= 'Name', y= 'Credits Used', width= 500)
 
 st.header('Select Warehouse(s):')
 
