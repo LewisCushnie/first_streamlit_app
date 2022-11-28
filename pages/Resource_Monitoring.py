@@ -24,6 +24,12 @@ st.dataframe(metering_df, width=500)
 
 st.bar_chart(data=metering_df, width=500)
 
+chart_data = pd.DataFrame(
+    np.random.randn(20, 3),
+    columns=["a", "b", "c"])
+
+st.bar_chart(chart_data)
+
 st.header('Select Warehouse(s):')
 
 metering_df = pd.DataFrame(metering, columns= ('WH_Name', 'Credits Used'))
