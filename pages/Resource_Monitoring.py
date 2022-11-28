@@ -3,7 +3,6 @@ import pandas as pd
 import requests
 import snowflake.connector
 from urllib.error import URLError
-from snowflake_demo import run_query
 
 # Funtion to perform queries from the database.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
@@ -17,13 +16,9 @@ def run_query(query):
 
 st.title('Resource Monitoring Summary')
 
-# Get all warehouses credit usage
-metering = run_query("select name, credits_used from metering_history;")
-metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
-
 # Get top 10 warehouses credit usage
-# metering_top_10 = run_query("select top 10 name, credits_used from metering_history;")
-# metering_top_10_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
+metering_top_10 = run_query("select top 10 name, credits_used from metering_history;")
+metering_top_10_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
 
 st.header("Metering:")
 st.dataframe(metering_df, width=500)
