@@ -38,7 +38,7 @@ metering_top_10_df = pd.DataFrame(metering_top_10, columns=['Name', 'Credits Use
 # Display the filtered df on the page
 st.dataframe(metering_df, width=500)
 st.dataframe(metering_top_10_df, width=500)
-st.bar_chart(data=metering_top_10_df, width=500)
+st.bar_chart(metering_top_10_df)
 
 st.header('Select Warehouse(s):')
 
