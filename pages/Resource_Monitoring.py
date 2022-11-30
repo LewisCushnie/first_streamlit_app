@@ -35,6 +35,7 @@ metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
 st.write(metering_top_10_df)
 new_df = metering_top_10_df.set_index('Y', inplace=False)
 st.bar_chart(new_df)
+st.bar_chart(new_df, x= 'X', y= 'Y')
 st.bar_chart(metering_top_10_df)
 
 # st.write(type(metering_top_10))
