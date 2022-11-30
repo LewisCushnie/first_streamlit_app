@@ -48,10 +48,11 @@ source = pd.DataFrame({
     'b': [28, 55, 43, 91, 81, 53, 19, 87, 52]
 })
 
-alt.Chart(source).mark_bar().encode(
+c2 = alt.Chart(source).mark_bar().encode(
     x='a',
     y='b'
 )
+st.altair_chart(c2, use_container_width=True)
 
 st.stop()
 
