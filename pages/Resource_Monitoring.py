@@ -37,16 +37,6 @@ st.write(metering_top_10_df)
 new_df = metering_top_10_df.set_index('Y', inplace=False)
 st.bar_chart(new_df)
 
-metering_top_10_reverse = run_query("select top 10 sum(credits_used), name from metering_history group by name;")
-metering_top_10_reverse_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
-new2_df = metering_top_10_reverse_df.set_index('X', inplace=False)
-st.bar_chart(new2_df)
-
-# st.write(type(metering_top_10))
-# st.write(metering_top_10)
-# st.write(type(metering_top_10_df))
-# st.write(metering_top_10_df)
-
 st.stop()
 
 # Get top 10 warehouses credit usage
