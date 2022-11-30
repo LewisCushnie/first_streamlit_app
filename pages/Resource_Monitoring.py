@@ -38,10 +38,23 @@ new_df = metering_top_10_df.set_index('Y', inplace=False)
 st.bar_chart(new_df)
 
 chart_data = metering_top_10_df
-c = alt.Chart(chart_data).mark_bar().encode(
+chart_data_index = metering_top_10_df.set_index('X', inplace=False)
+c = alt.Chart(chart_data_index).mark_bar().encode(
     x='X', y='Y')
-    
 st.altair_chart(c, use_container_width=True)
+
+source = pd.DataFrame({
+    'a': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+    'b': [28, 55, 43, 91, 81, 53, 19, 87, 52]
+})
+
+alt.Chart(source).mark_bar().encode(
+    x='a',
+    y='b'
+)
+
+st.stop()
+
 
 chart_data = pd.DataFrame(
     np.random.randn(20, 3),
