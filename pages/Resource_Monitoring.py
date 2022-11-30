@@ -25,7 +25,20 @@ def run_query(query):
         cur.execute(query)
         return cur.fetchall()
 
+# Funtion to perform queries from the database.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def run_query_pandas(query):
+    with conn.cursor() as cur:
+        cur.execute(query)
+        return cur.fetch_pandas_all()
+
 #============================= PAGE STARTS =================================
+
+metering_top_10 = run_query_pandas("select top 10 name, sum(credits_used) from metering_history group by name;")
+st.write(metering_top_10)
+
+st.stop()
 
 st.title('Resource Monitoring Summary')
 
