@@ -29,9 +29,9 @@ def run_query(query):
 st.title('Resource Monitoring Summary')
 
 # Get all warehouses credit usage
-metering = run_query("select name, credits_used from metering_history;")
-metering_df = pd.DataFrame(metering, columns=['Name', 'Credits Used'])
-st.bar_chart(metering_df, y=metering_df['Credits Used'])
+metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
+metering_top_10_df = pd.DataFrame(metering_top_10, columns=['index', 'Credits Used'])
+st.bar_chart(metering_top_10_df)
 st.stop()
 
 # Get top 10 warehouses credit usage
