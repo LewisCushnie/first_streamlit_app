@@ -24,21 +24,9 @@ def run_query(query):
     with conn.cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
-
 #============================= PAGE STARTS =================================
 
 st.title('Resource Monitoring Summary')
-
-# Create a cursor object.
-curs = conn.cursor()
-
-# Execute a statement that will generate a result set.
-sql = "select * from t"
-curs.execute(sql)
-
-# Fetch the result set from the cursor and deliver it as the Pandas DataFrame.
-df = curs.fetch_pandas_all()
-st.write(df)
 
 # Get all warehouses credit usage
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
@@ -50,6 +38,7 @@ st.bar_chart(new_df)
 
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
+metering_top_10_df = pd.DataFrame(metering_top_10)
 st.write(type(metering_top_10_df))
 # chart_data2 = chart_data.set_index('X', inplace=True)
 c = alt.Chart(metering_top_10_df).mark_bar().encode(
