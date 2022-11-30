@@ -38,8 +38,8 @@ st.bar_chart(new_df)
 
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
-st.write(metering_top_10_df)
 metering_top_10_df = pd.DataFrame(metering_top_10)
+st.write(metering_top_10_df)
 st.write(type(metering_top_10_df))
 # chart_data2 = chart_data.set_index('X', inplace=True)
 c = alt.Chart(metering_top_10_df).mark_bar().encode(
