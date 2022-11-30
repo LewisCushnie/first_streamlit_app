@@ -45,7 +45,7 @@ st.write(y_data)
 st.bar_chart(x_data)
 
 st.write(metering_top_10_df)
-new_df = metering_top_10_df.set_index('X', inplace=False)
+new_df = metering_top_10_df.set_index('X', inplace=True)
 st.bar_chart(new_df)
 st.bar_chart(metering_top_10_df)
 
