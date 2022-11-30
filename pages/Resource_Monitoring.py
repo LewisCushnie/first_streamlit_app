@@ -37,6 +37,11 @@ st.write(metering_top_10_df)
 new_df = metering_top_10_df.set_index('Y', inplace=False)
 st.bar_chart(new_df)
 
+chart_data = metering_top_10_df
+c = alt.Chart(chart_data).mark_circle().encode(
+    x='X', y='Y')
+st.altair_chart(c, use_container_width=True)
+
 chart_data = pd.DataFrame(
     np.random.randn(20, 3),
     columns=['a', 'b', 'c'])
