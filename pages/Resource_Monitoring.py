@@ -5,6 +5,7 @@ import snowflake.connector
 import numpy as np
 from urllib.error import URLError
 import altair as alt
+from utils import charts, gui, processing
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
@@ -32,13 +33,23 @@ st.title('Resource Monitoring Summary')
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
 
+# Bar chart
+bar_chart = charts.get_bar_chart(
+    df=metering_top_10_df,
+    date_column="X",
+    value_column="Y",
+)
+
+st.altair_chart(bar_chart, use_container_width=True)
+
+st.stop()
+
 st.write(metering_top_10_df)
 new_df = metering_top_10_df.set_index('Y', inplace=False)
 st.bar_chart(new_df)
 
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
-metering_top_10_df = pd.DataFrame(metering_top_10)
 st.write(metering_top_10_df)
 st.write(type(metering_top_10_df))
 # chart_data2 = chart_data.set_index('X', inplace=True)
