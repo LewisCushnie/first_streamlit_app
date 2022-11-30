@@ -30,7 +30,7 @@ def run_query(query):
 st.title('Resource Monitoring Summary')
 
 # Get all warehouses credit usage
-metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
+metering_top_10 = run_query("select top 10 sum(credits_used), name from metering_history group by name;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
 
 st.write(metering_top_10_df)
@@ -40,7 +40,8 @@ st.bar_chart(new_df)
 chart_data = metering_top_10_df
 #chart_data_index = chart_data.set_index('Y', inplace=False)
 c = alt.Chart(chart_data).mark_bar().encode(
-    x='X', y='Y')
+    x='X', 
+    y='Y')
 st.altair_chart(c, use_container_width=True)
 
 source = pd.DataFrame({
