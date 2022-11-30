@@ -37,6 +37,15 @@ st.write(metering_top_10_df)
 new_df = metering_top_10_df.set_index('Y', inplace=False)
 st.bar_chart(new_df)
 
+chart_data = pd.DataFrame(
+    np.random.randn(20, 3),
+    columns=['a', 'b', 'c'])
+
+c = alt.Chart(chart_data).mark_circle().encode(
+    x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+
+st.altair_chart(c, use_container_width=True)
+
 st.stop()
 
 # Get top 10 warehouses credit usage
