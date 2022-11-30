@@ -41,8 +41,8 @@ metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
 # chart_data2 = chart_data.set_index('X', inplace=True)
 c = alt.Chart(metering_top_10_df).mark_bar().encode(
-    x='X', 
-    y='Y')
+    x='Y', 
+    y='X')
 st.altair_chart(c, use_container_width=True)
 
 source = pd.DataFrame({
