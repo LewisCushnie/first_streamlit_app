@@ -36,6 +36,7 @@ st.dataframe(metering_top_10_df)
 st.bar_chart(metering_top_10_df, x= 'index', y='Credits Used', height= 500)
 st.write(type(metering_top_10))
 st.write(metering_top_10)
+st.write(metering_top_10_df)
 
 st.stop()
 
