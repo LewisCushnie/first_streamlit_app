@@ -37,6 +37,8 @@ y_data = metering_top_10_df['Y']
 st.write(x_data)
 st.write(y_data)
 
+st.bar_chart(y_data)
+
 st.write(metering_top_10_df)
 st.bar_chart(metering_top_10_df)
 
