@@ -33,7 +33,7 @@ metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering
 #metering_top_10_df = pd.DataFrame(metering_top_10, columns=['index', 'Credits Used'])
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
 st.write(metering_top_10_df)
-st.bar_chart(metering_top_10_df['Y'], x= 'X')
+st.bar_chart(metering_top_10_df['Y'], x= metering_top_10_df['X'])
 
 x_data = metering_top_10_df['X']
 y_data = metering_top_10_df['Y']
