@@ -37,8 +37,8 @@ st.write(metering_top_10_df)
 new_df = metering_top_10_df.set_index('Y', inplace=False)
 st.bar_chart(new_df)
 
-chart_data = metering_top_10_df
-chart_data = chart_data.set_index('X', inplace=True)
+chart_data = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
+chart_data = chart_data.set_index('X', inplace=False)
 c = alt.Chart(chart_data).mark_bar().encode(
     x='X', 
     y='Y')
