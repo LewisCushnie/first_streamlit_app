@@ -39,7 +39,7 @@ st.bar_chart(new_df)
 
 chart_data = metering_top_10_df
 #chart_data_index = metering_top_10_df.set_index('X', inplace=False)
-c = alt.Chart(chart_data_index).mark_bar().encode(
+c = alt.Chart(chart_data).mark_bar().encode(
     x='X', y='Y')
 st.altair_chart(c, use_container_width=True)
 
