@@ -37,7 +37,7 @@ metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(f
 st.dataframe(metering_top_10_df, width= 500)
 
 # Multiselect list
-wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df['WH_Name']),['COMPUTE_WH'])
+wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH'])
 # filter using panda's .loc
 WH_to_show_df = metering_top_10_df.loc[wh_selected]
 
