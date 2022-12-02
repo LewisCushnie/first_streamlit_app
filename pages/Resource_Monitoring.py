@@ -37,6 +37,12 @@ metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(f
 st.dataframe(metering_top_10_df, width= 500)
 st.bar_chart(metering_top_10_df, height= 500)
 
+click = st.button('Snow baby!')
+
+if click:
+    st.snow()
+    click = False
+
 st.stop()
 
 # Bar chart
