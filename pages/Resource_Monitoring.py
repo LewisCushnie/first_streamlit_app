@@ -49,7 +49,11 @@ st.bar_chart(WH_to_show_df, height= 500)
 st.text('Default Bar Chart')
 st.bar_chart(metering_top_10_df, height= 500)
 
-
+st.text('On/Off grid')
+col1, col2, col3 = st.columns(3)
+col1.metric("COMPUTE_WH", metering_top_10_df.loc['COMPUTE_WH', 'Credits Used'], 10)
+col2.metric("Wind", "9 mph", "-8%")
+col3.metric("Humidity", "86%", "4%")
 
 click = st.button('Snow baby!')
 
