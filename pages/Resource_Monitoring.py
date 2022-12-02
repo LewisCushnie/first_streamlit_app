@@ -43,11 +43,13 @@ WH_to_show_df = metering_top_10_df.loc[wh_selected]
 
 # Display the filtered df on the page.
 #filtered_wh = st.dataframe(WH_to_show)
-
-st.bar_chart(metering_top_10_df, height= 500)
-
 st.text('Filtered Bar Chart')
 st.bar_chart(WH_to_show_df, height= 500)
+
+st.text('Default Bar Chart')
+st.bar_chart(metering_top_10_df, height= 500)
+
+
 
 click = st.button('Snow baby!')
 
