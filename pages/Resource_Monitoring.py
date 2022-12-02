@@ -33,6 +33,7 @@ st.title('Resource Monitoring Summary')
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 metering_top_10_df = pd.DataFrame(metering_top_10, columns=['X', 'Y'])
 metering_top_10_df = metering_top_10_df.set_index('X')
+metering_top_10_df['Y'] = metering_top_10_df['Y'].astype(float)
 st.write(metering_top_10_df)
 st.bar_chart(metering_top_10_df)
 
