@@ -3,7 +3,6 @@ import pandas as pd
 import requests
 import snowflake.connector
 from urllib.error import URLError
-from snowflake_demo import run_query, init_connection
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
