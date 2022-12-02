@@ -5,7 +5,7 @@ import snowflake.connector
 import numpy as np
 from urllib.error import URLError
 import altair as alt
-from utils import charts, gui, processing
+#from utils import charts, gui, processing
 
 # Initialize connection.
 # Uses st.experimental_singleton to only run once.
