@@ -37,6 +37,7 @@ st.sidebar.metric("Credits used", rounded_credits)
 
 snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
 columns=['Database', 'Schema', 'Role', 'Session', 'User', 'Warehouse', 'Region', 'Time'])
+snowflake_session_variables_df.set_index('Session')
 transposed = snowflake_session_variables_df.transpose()
 
 st.write(snowflake_session_variables_df)
