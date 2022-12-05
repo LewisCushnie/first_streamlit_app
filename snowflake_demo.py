@@ -19,7 +19,7 @@ streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Strea
 st.write(streamlit_credits_used_df)
 
 st.sidebar.header('Credits used in streamlit')
-credits = streamlit_credits_used['Streamlit_Credits_Used'][0]
+credits = streamlit_credits_used.iloc[0]['Streamlit_Credits_Used']
 st.sidebar.metric("Credits used", credits)
 
 st.title('Snowflake Connectivity Demo')
