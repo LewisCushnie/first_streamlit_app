@@ -36,8 +36,8 @@ from SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY order by credits_used_cloud_services 
 
 # Convert to pandas dataframe
 most_expensive_queries_df = pd.DataFrame(most_expensive_queries, columns=['CREDITS_USED_CLOUD_SERVICES', 'QUERY_TYPE', 'DATABASE_NAME', 'MINUTES_TO_COMPLETE'])
-most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
-#most_expensive_queries_df['Credits Used'] = most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'].astype(float)
+#most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
+most_expensive_queries_df['Credits Used'] = most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'].astype(float)
 most_expensive_queries_df['Credits Used'] = most_expensive_queries_df['MINUTES_TO_COMPLETE'].astype(int)
 st.header("Queries Summary:")
 st.dataframe(most_expensive_queries_df)
