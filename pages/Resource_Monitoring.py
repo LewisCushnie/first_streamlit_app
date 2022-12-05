@@ -36,13 +36,14 @@ metering_top_10_df = pd.DataFrame(metering_top_10, columns=['WH_Name', 'Credits 
 metering_top_10_df = metering_top_10_df.set_index('WH_Name')
 metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(float)
 
+st.header('Warehouse credit usage')
+
 # Multiselect list
 wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
 # filter using panda's .loc
 WH_to_show_df = metering_top_10_df.loc[wh_selected]
 
 # Display the filtered df on the page.
-st.text('Warehouse credit usage')
 st.bar_chart(WH_to_show_df, height= 500)
 
 st.text('On/Off grid')
