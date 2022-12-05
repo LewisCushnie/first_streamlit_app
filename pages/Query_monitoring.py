@@ -20,6 +20,7 @@ conn = init_connection()
 @st.experimental_memo(ttl=600)
 def run_query(query):
     with conn.cursor() as cur:
+        cur.execute("alter session set query_tag = 'Streamlit App'")
         cur.execute(query)
         return cur.fetchall()
 
@@ -33,11 +34,12 @@ select top 10 query_id
 ,total_elapsed_time/60000 as minutes_to_complete
 ,query_type
 ,database_name
+,query_tag
 from SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY order by credits_used_cloud_services desc;'''
 )
 
 # Convert to pandas dataframe
-most_expensive_queries_df = pd.DataFrame(most_expensive_queries, columns=['QUERY_ID','CREDITS_USED_CLOUD_SERVICES','MINUTES_TO_COMPLETE', 'QUERY_TYPE', 'DATABASE_NAME'])
+most_expensive_queries_df = pd.DataFrame(most_expensive_queries, columns=['QUERY_ID','CREDITS_USED_CLOUD_SERVICES','MINUTES_TO_COMPLETE', 'QUERY_TYPE', 'DATABASE_NAME', 'QUERY_TAG'])
 #most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
 most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'] = most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'].astype(float)
 most_expensive_queries_df['MINUTES_TO_COMPLETE'] = most_expensive_queries_df['MINUTES_TO_COMPLETE'].astype(float)
