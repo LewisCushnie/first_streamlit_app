@@ -8,6 +8,41 @@ from connection import init_connection, run_query
 conn = init_connection()
 
 #============================= PAGE STARTS =================================
+
+#------------------------------- SIDEBAR ----------------------------------- 
+
+st.sidebar.header('Snowflake session')
+
+streamlit_credits_used = run_query(
+'''select
+sum(credits_used_cloud_services)
+from query_history
+where query_tag = 'StreamlitQuery';'''
+)
+
+snowflake_session_variables = run_query(
+'''select current_database() 
+,current_schema()
+,current_role()
+,current_session()
+,current_user()
+,current_warehouse()
+,current_region()
+,current_time();'''
+)
+
+streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Streamlit_Credits_Used'])
+credits = streamlit_credits_used_df.iloc[0]['Streamlit_Credits_Used']
+rounded_credits = round(credits, 5)
+st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
+
+snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
+columns=['Database', 'Schema', 'Role', 'Session', 'User', 'Warehouse', 'Region', 'Time'])
+transposed_session_variables_df = snowflake_session_variables_df.transpose()
+st.sidebar.dataframe(transposed_session_variables_df)
+
+#------------------------------- SIDEBAR ----------------------------------- 
+
 st.title('Query Monitoring')
 
 most_expensive_queries = run_query(
