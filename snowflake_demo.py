@@ -16,7 +16,7 @@ from query_history
 where query_tag = 'StreamlitQuery';'''
 )
 streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used)
-st.write(streamlit_credits_used_df[0])
+st.write(streamlit_credits_used_df.iloc[0])
 
 st.sidebar.header('Credits used in streamlit')
 st.sidebar.metric("Credits used", streamlit_credits_used)
