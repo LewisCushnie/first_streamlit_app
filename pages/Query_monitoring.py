@@ -27,10 +27,12 @@ def run_query(query):
 st.title('Query Monitoring')
 
 most_expensive_queries = run_query(
-'''select top 10 credits_used_cloud_services
+'''
+select top 10 query_id
+,credits_used_cloud_services
+,total_elapsed_time/60000 as minutes_to_complete
 ,query_type
 ,database_name
-,total_elapsed_time/60000 as minutes_to_complete
 from SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY order by credits_used_cloud_services desc;'''
 )
 
