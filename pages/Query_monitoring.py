@@ -49,7 +49,7 @@ st.dataframe(most_expensive_queries_df)
 st.header('most recent queries')
 most_recent_queries = run_query(
 '''
-select top 10 query_id
+select top 15 query_id
 ,query_text
 ,start_time
 ,query_tag
