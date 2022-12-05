@@ -10,6 +10,7 @@ conn = init_connection()
 #============================= PAGE STARTS =================================
 
 #------------------------------- SIDEBAR ----------------------------------- 
+
 st.sidebar.header('Snowflake session')
 
 streamlit_credits_used = run_query(
@@ -33,12 +34,13 @@ snowflake_session_variables = run_query(
 streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Streamlit_Credits_Used'])
 credits = streamlit_credits_used_df.iloc[0]['Streamlit_Credits_Used']
 rounded_credits = round(credits, 5)
-st.sidebar.metric("Credits used", rounded_credits)
+st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
 
 snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
 columns=['Database', 'Schema', 'Role', 'Session', 'User', 'Warehouse', 'Region', 'Time'])
 transposed_session_variables_df = snowflake_session_variables_df.transpose()
 st.sidebar.dataframe(transposed_session_variables_df)
+
 #------------------------------- SIDEBAR ----------------------------------- 
 
 st.title('Snowflake Connectivity Demo')
