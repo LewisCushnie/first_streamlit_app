@@ -15,7 +15,7 @@ sum(credits_used_cloud_services)
 from query_history
 where query_tag = 'StreamlitQuery';'''
 )
-streamlit_credits_used_df = pd.dataframe(streamlit_credits_used)
+streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used)
 st.write(streamlit_credits_used_df)
 
 st.sidebar.header('Credits used in streamlit')
