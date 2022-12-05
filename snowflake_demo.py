@@ -9,6 +9,18 @@ conn = init_connection()
 
 #============================= PAGE STARTS =================================
 
+streamlit_credits_used = run_query(
+'''select
+sum(credits_used_cloud_services)
+from query_history
+where query_tag = 'StreamlitQuery';'''
+)
+
+st.write(streamlit_credits_used)
+
+st.sidebar.header('Credits used in streamlit')
+st.sidebar.metric("Credits used", streamlit_credits_used)
+
 st.title('Snowflake Connectivity Demo')
 
 all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
@@ -22,39 +34,3 @@ st.dataframe(metering_history)
 databases = run_query("select * from databases;")
 st.header("Databases:")
 st.dataframe(databases)
-
-# Stop streamlit from running past this point
-st.stop()
-
-my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("select * from roles")
-my_data_rows = my_cur.fetchall()
-st.header("Roles:")
-st.dataframe(my_data_rows)
-
-# Allow the end user to add a fruit to the list
-def insert_row_snowflake(new_fruit):
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("insert into fruit_load_list values ('from streamlit')")
-    return "Thanks for adding" + new_fruit
-    
-add_my_fruit = st.text_input('What fruit would you like to add')
-if st.button('Add a fruit to the list'):
-  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-  back_from_function = insert_row_snowflake(add_my_fruit)
-  st.text(back_from_function)
-
-st.header("The fruit load list contains:")
-# Snowflake related functions
-def get_fruit_load_list():
-  with my_cnx.cursor() as my_cur:
-    my_cur.execute("select * from fruit_load_list")
-    return my_cur.fetchall()
-    
-# Add button to load fruit
-if st.button('Get fruit load list'):
-  my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-  my_data_rows = get_fruit_load_list()
-  my_cnx.close()
-  st.dataframe(my_data_rows)
