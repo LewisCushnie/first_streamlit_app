@@ -5,7 +5,9 @@ import snowflake.connector
 import numpy as np
 from urllib.error import URLError
 import altair as alt
-from snowflake_demo import run_query
+from snowflake_connection import init_connection, run_query
+
+conn = init_connection()
 
 st.title('Snowflake Connectivity Demo')
 all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
