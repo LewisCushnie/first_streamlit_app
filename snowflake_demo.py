@@ -40,6 +40,7 @@ columns=['Database', 'Schema', 'Role', 'Session', 'User', 'Warehouse', 'Region',
 transposed = snowflake_session_variables_df.transpose()
 
 st.write(snowflake_session_variables_df)
+st.write(transposed)
 
 
 
