@@ -8,19 +8,19 @@ from urllib.error import URLError
 # Uses st.experimental_singleton to only run once.
 @st.experimental_singleton
 def init_connection():
-    return snowflake.connector.connect(
-        **st.secrets["snowflake"], client_session_keep_alive=True
+    conn = snowflake.connector.connect(
+        **st.secrets["snowflake"], client_session_keep_alive=True, session_parameters={'QUERY_TAG': 'Streamlit App'}
     )
 
-# Initialize snowflake connection object
-conn = init_connection()
+    if 'conn' not in st.session_state:
+        st.session_state['conn'] = conn
+        return conn
 
 # Funtion to perform queries from the database.
 # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
 @st.experimental_memo(ttl=600)
 def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute("alter session set query_tag = 'Streamlit App'")
+    with st.session_state['conn'].cursor() as cur:
         cur.execute(query)
         return cur.fetchall()
 
