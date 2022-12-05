@@ -7,28 +7,6 @@ from connection import init_connection, run_query
 
 conn = init_connection()
 
-# # Initialize connection.
-# # Uses st.experimental_singleton to only run once.
-# @st.experimental_singleton
-# def init_connection():
-#     conn = snowflake.connector.connect(
-#         **st.secrets["snowflake"], client_session_keep_alive=True, session_parameters={'QUERY_TAG': 'Streamlit App'}
-#     )
-
-#     if 'conn' not in st.session_state:
-#         st.session_state['conn'] = conn
-#         return conn
-
-# conn = init_connection()
-
-# # Funtion to perform queries from the database.
-# # Uses st.experimental_memo to only rerun when the query changes or after 10 min.
-# @st.experimental_memo(ttl=600)
-# def run_query(query):
-#     with st.session_state['conn'].cursor() as cur:
-#         cur.execute(query)
-#         return cur.fetchall()
-
 #============================= PAGE STARTS =================================
 st.title('Query Monitoring')
 
