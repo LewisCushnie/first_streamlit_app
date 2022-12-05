@@ -20,7 +20,7 @@ st.write(streamlit_credits_used_df)
 
 st.sidebar.header('Credits used in streamlit')
 credits = streamlit_credits_used_df.iloc[0]['Streamlit_Credits_Used']
-rounded_credits = round(credits, 3)
+rounded_credits = round(credits, 5)
 st.sidebar.metric("Credits used", rounded_credits)
 
 st.title('Snowflake Connectivity Demo')
