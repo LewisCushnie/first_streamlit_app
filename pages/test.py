@@ -5,7 +5,7 @@ import snowflake.connector
 import numpy as np
 from urllib.error import URLError
 import altair as alt
-from snowflake_connection import init_connection, run_query
+from connection import init_connection, run_query
 
 conn = init_connection()
 
