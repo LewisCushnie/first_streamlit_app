@@ -15,11 +15,11 @@ sum(credits_used_cloud_services)
 from query_history
 where query_tag = 'StreamlitQuery';'''
 )
-streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used)
-st.write(streamlit_credits_used_df[0,0])
+streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Streamlit_Credits_Used'])
+st.write(streamlit_credits_used_df)
 
 st.sidebar.header('Credits used in streamlit')
-st.sidebar.metric("Credits used", streamlit_credits_used)
+st.sidebar.metric("Credits used", streamlit_credits_used['Streamlit_Credits_Used'].values())
 
 st.title('Snowflake Connectivity Demo')
 
