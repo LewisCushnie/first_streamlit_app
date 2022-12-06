@@ -47,6 +47,21 @@ st.sidebar.dataframe(transposed_session_variables_df)
 
 st.title('Resource Monitoring Summary')
 
+st.text(
+'''
+This page provides a breakdown of the resource useage within the Snowflake account to better understand
+where and how credits are being consumed on the account. This will include a number of interactive charts,
+as well as recomendaions for parameter changes within snowflake that aim to maximise resourcse consumption
+efficiency.
+
+This page will look at:
+'''
+)
+
+metering_history = run_query("select name, credits_used from metering_history;")
+st.header("Metering Summary:")
+st.dataframe(metering_history)
+
 # Get top 10 warehouses with most credit usage
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 
