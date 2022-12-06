@@ -86,6 +86,7 @@ with open("pages/style/style.css") as f:
 
         st.header('Useful Query History Data')
         st.dataframe(df)
+        st.bar_chart(x=df['User Name'], y=df['Percent from cache'])
 
     # most_expensive_queries = run_query(
     # '''
