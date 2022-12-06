@@ -13,87 +13,90 @@ conn = st.session_state['conn']
 
 #------------------------------- SIDEBAR ----------------------------------- 
 
-st.sidebar.header('Snowflake session')
+with open("pages/style/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-streamlit_credits_used = run_query(
-'''select
-sum(credits_used_cloud_services)
-from query_history
-where query_tag = 'StreamlitQuery';'''
-)
+    st.sidebar.header('Snowflake session')
 
-snowflake_session_variables = run_query(
-'''select current_database() 
-,current_schema()
-,current_role()
-,current_session()
-,current_user()
-,current_warehouse()
-,current_region()
-,current_time();'''
-)
+    streamlit_credits_used = run_query(
+    '''select
+    sum(credits_used_cloud_services)
+    from query_history
+    where query_tag = 'StreamlitQuery';'''
+    )
 
-streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Streamlit_Credits_Used'])
-credits = streamlit_credits_used_df.iloc[0]['Streamlit_Credits_Used']
-rounded_credits = round(credits, 5)
-st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
+    snowflake_session_variables = run_query(
+    '''select current_database() 
+    ,current_schema()
+    ,current_role()
+    ,current_session()
+    ,current_user()
+    ,current_warehouse()
+    ,current_region()
+    ,current_time();'''
+    )
 
-snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
-columns=['Database', 'Schema', 'Current role', 'Session ID', 'User', 'Warehouse', 'Region', 'Region time'])
-transposed_session_variables_df = snowflake_session_variables_df.transpose()
-st.sidebar.dataframe(transposed_session_variables_df)
+    streamlit_credits_used_df = pd.DataFrame(streamlit_credits_used, columns=['Streamlit_Credits_Used'])
+    credits = streamlit_credits_used_df.iloc[0]['Streamlit_Credits_Used']
+    rounded_credits = round(credits, 5)
+    st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
 
-#------------------------------- SIDEBAR ----------------------------------- 
+    snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
+    columns=['Database', 'Schema', 'Current role', 'Session ID', 'User', 'Warehouse', 'Region', 'Region time'])
+    transposed_session_variables_df = snowflake_session_variables_df.transpose()
+    st.sidebar.dataframe(transposed_session_variables_df)
 
-st.title('Resource Monitoring Summary')
+    #------------------------------- SIDEBAR ----------------------------------- 
 
-st.text(
-'''
-This page provides a breakdown of the resource useage within the Snowflake account to better understand
-where and how credits are being consumed on the account. This will include a number of interactive charts,
-as well as recomendaions for parameter changes within snowflake that aim to maximise resourcse consumption
-efficiency.
+    st.title('Resource Monitoring Summary')
 
-This page will look at:
+    st.text(
+    '''
+    This page provides a breakdown of the resource useage within the Snowflake account to better understand
+    where and how credits are being consumed on the account. This will include a number of interactive charts,
+    as well as recomendaions for parameter changes within snowflake that aim to maximise resourcse consumption
+    efficiency.
 
-- Warehouse monitoring
-- Task monitoring
-- Snowpipe monitoring
-'''
-)
+    This page will look at:
 
-metering_history = run_query("select name, credits_used from metering_history;")
-st.header("Metering Summary:")
-st.dataframe(metering_history)
+    - Warehouse monitoring
+    - Task monitoring
+    - Snowpipe monitoring
+    '''
+    )
 
-# Get top 10 warehouses with most credit usage
-metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
+    metering_history = run_query("select name, credits_used from metering_history;")
+    st.header("Metering Summary:")
+    st.dataframe(metering_history)
 
-# Convert to pandas dataframe
-metering_top_10_df = pd.DataFrame(metering_top_10, columns=['WH_Name', 'Credits Used'])
-metering_top_10_df = metering_top_10_df.set_index('WH_Name')
-metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(float)
+    # Get top 10 warehouses with most credit usage
+    metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 
-st.header('Warehouse credit usage')
+    # Convert to pandas dataframe
+    metering_top_10_df = pd.DataFrame(metering_top_10, columns=['WH_Name', 'Credits Used'])
+    metering_top_10_df = metering_top_10_df.set_index('WH_Name')
+    metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(float)
 
-# Multiselect list
-wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
-# filter using panda's .loc
-WH_to_show_df = metering_top_10_df.loc[wh_selected]
+    st.header('Warehouse credit usage')
 
-# Display the filtered df on the page.
-st.bar_chart(WH_to_show_df, height= 500)
+    # Multiselect list
+    wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
+    # filter using panda's .loc
+    WH_to_show_df = metering_top_10_df.loc[wh_selected]
 
-st.text('On/Off grid')
-col1, col2, col3 = st.columns(3)
-col1.metric("COMPUTE_WH", metering_top_10_df.loc['COMPUTE_WH', 'Credits Used'], 10)
-col2.metric("Wind", "9 mph", "-8%")
-col3.metric("Humidity", "86%", "4%")
+    # Display the filtered df on the page.
+    st.bar_chart(WH_to_show_df, height= 500)
 
-click = st.button('Snow baby!')
+    st.text('On/Off grid')
+    col1, col2, col3 = st.columns(3)
+    col1.metric("COMPUTE_WH", metering_top_10_df.loc['COMPUTE_WH', 'Credits Used'], 10)
+    col2.metric("Wind", "9 mph", "-8%")
+    col3.metric("Humidity", "86%", "4%")
 
-if click:
-    st.snow()
-    click = False
+    click = st.button('Snow baby!')
 
-st.stop()
+    if click:
+        st.snow()
+        click = False
+
+    st.stop()
