@@ -98,10 +98,12 @@ with open("pages/style/style.css") as f:
         df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
         df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
         df['Execution time'] = df['Execution time'].astype(float) 
+
+        df = df.set_index('User Name')
         
     selected_username = st.multiselect('Select a user', clean_users)
 
-    df = df[df['User Name'] == selected_username]                   
+    df = df.loc[selected_username]                  
 
     st.header('Useful Query History Data')
     st.dataframe(df)
