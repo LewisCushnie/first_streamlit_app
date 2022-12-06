@@ -84,6 +84,11 @@ with open("pages/style/style.css") as f:
                                         'Avg Partitions Used', 'Execution time', 'Query load percent',
                                         'Avg Credits by Cloud Services'])
 
+        df['Percent from cache'] = df['Percent from cache'].astype(float)              
+        df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
+        df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
+        df['Execution time'] = df['Execution time'].astype(float)                       
+
         st.header('Useful Query History Data')
         st.dataframe(df)
         st.bar_chart(x=df['User Name'], y=df['Percent from cache'])
