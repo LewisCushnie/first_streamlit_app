@@ -108,7 +108,7 @@ with open("pages/style/style.css") as f:
 
     if selected_username:
         st.dataframe(df)
-        st.bar_chart(data = df, y=['Execution time','Avg Partitions Scanned'])
+        st.bar_chart(data = df, y=['Avg Partitions Scanned', 'Percent from cache'])
         st.bar_chart(data = df, y=['Execution time'])
 
     # most_expensive_queries = run_query(
