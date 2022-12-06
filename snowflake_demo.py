@@ -66,15 +66,3 @@ Cost analysis:
 - How to determine the top 10 queries with the most spillage to remote storage
 """
 )
-
-all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
-st.header("Roles Summary:")
-st.dataframe(all_RBAC_roles)
-
-metering_history = run_query("select name, credits_used from metering_history;")
-st.header("Metering Summary:")
-st.dataframe(metering_history)
-
-databases = run_query("select * from databases;")
-st.header("Databases:")
-st.dataframe(databases)

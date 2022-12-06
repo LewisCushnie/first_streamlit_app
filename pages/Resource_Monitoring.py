@@ -47,6 +47,10 @@ st.sidebar.dataframe(transposed_session_variables_df)
 
 st.title('Resource Monitoring Summary')
 
+metering_history = run_query("select name, credits_used from metering_history;")
+st.header("Metering Summary:")
+st.dataframe(metering_history)
+
 # Get top 10 warehouses with most credit usage
 metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
 

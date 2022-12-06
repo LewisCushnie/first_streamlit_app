@@ -48,6 +48,3 @@ st.title('RBAC Roles Summary')
 all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
 st.header("Roles Summary:")
 st.dataframe(all_RBAC_roles)
-
-# Stop streamlit from running past this point
-#st.stop()
