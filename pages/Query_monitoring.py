@@ -54,37 +54,69 @@ with open("pages/style/style.css") as f:
     optimise caching and warehouse compute'''
     )
 
-    most_expensive_queries = run_query(
-    '''
-    select top 10 query_id
-    ,credits_used_cloud_services
-    ,total_elapsed_time/60000 as minutes_to_complete
-    ,query_type
-    ,database_name
-    ,query_tag
-    from SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY order by credits_used_cloud_services desc;'''
+    ### GET WAREHOUSE NAMES ###
+    names = run_query("select name from metering_history;")
+    names = pd.DataFrame(names, columns=['Warehouse Name'])
+    names = names.set_index('Warehouse Name')
+    wh_selected = st.multiselect("Pick Warehouse:", list(names.index),['COMPUTE_WH'])
+
+    ### Queries per user ###
+    df = run_query(
+        '''
+        SELECT database_name
+        , schema_name
+        , query_type
+        , user_name
+        , start_time
+        , end_time
+        , warehouse_size
+        , percentage_scanned_from_cache
+        , execution_time
+        , query_load_percent
+        FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
+        ORDER BY start_time desc; 
+        '''
     )
+    
+    df = pd.DataFrame(df, columns = ['DB Name', 'Schema Name', 'Query Type', 
+                                    'Username', 'Start', 'End', 'Warehouse Size',
+                                    'Percent from cache', 'Execution time',
+                                    'Query load percent'])
 
-    # Convert to pandas dataframe
-    most_expensive_queries_df = pd.DataFrame(most_expensive_queries, columns=['QUERY_ID','CREDITS_USED_CLOUD_SERVICES','MINUTES_TO_COMPLETE', 'QUERY_TYPE', 'DATABASE_NAME', 'QUERY_TAG'])
-    #most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
-    most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'] = most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'].astype(float)
-    most_expensive_queries_df['MINUTES_TO_COMPLETE'] = most_expensive_queries_df['MINUTES_TO_COMPLETE'].astype(float)
-    st.header("Queries Summary:")
-    st.dataframe(most_expensive_queries_df)
+    st.header('Useful Query History Data')
+    st.dataframe(df)
 
-    st.header('most recent queries')
-    most_recent_queries = run_query(
-    '''
-    select top 15 query_id
-    ,query_text
-    ,start_time
-    ,query_tag
-    from SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY order by start_time desc;'''
-    )
+    # most_expensive_queries = run_query(
+    # '''
+    # select top 10 query_id
+    # ,credits_used_cloud_services
+    # ,total_elapsed_time/60000 as minutes_to_complete
+    # ,query_type
+    # ,database_name
+    # ,query_tag
+    # from SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY order by credits_used_cloud_services desc;'''
+    # )
 
-    # Convert to pandas dataframe
-    most_expensive_queries_df = pd.DataFrame(most_recent_queries, columns=['id','text','time', 'tag'])
-    #most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
-    st.header("Queries Summary:")
-    st.dataframe(most_expensive_queries_df)
+    # # Convert to pandas dataframe
+    # most_expensive_queries_df = pd.DataFrame(most_expensive_queries, columns=['QUERY_ID','CREDITS_USED_CLOUD_SERVICES','MINUTES_TO_COMPLETE', 'QUERY_TYPE', 'DATABASE_NAME', 'QUERY_TAG'])
+    # #most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
+    # most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'] = most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'].astype(float)
+    # most_expensive_queries_df['MINUTES_TO_COMPLETE'] = most_expensive_queries_df['MINUTES_TO_COMPLETE'].astype(float)
+    # st.header("Queries Summary:")
+    # st.dataframe(most_expensive_queries_df)
+
+    # st.header('most recent queries')
+    # most_recent_queries = run_query(
+    # '''
+    # select top 15 query_id
+    # ,query_text
+    # ,start_time
+    # ,query_tag
+    # from SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY order by start_time desc;'''
+    # )
+
+    # # Convert to pandas dataframe
+    # most_expensive_queries_df = pd.DataFrame(most_recent_queries, columns=['id','text','time', 'tag'])
+    # #most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
+    # st.header("Queries Summary:")
+    # st.dataframe(most_expensive_queries_df)
