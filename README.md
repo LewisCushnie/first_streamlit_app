@@ -11,6 +11,16 @@ Features to add:
 7) Role > privelages display
 8) Most expensive query history
 
+Things to track:
+Most expensive warehouses
+Most frequently run warehouses
+disc overflow on queries > which queries need re-working
+Most expensive queries
+Frequently run queries
+Cost per query for small, medium, large, etc.
+Snowpipe tracking
+Task tracking
+
 Cost analysis:
 1) Cost saving of stopping warehouse via autosuspend v.s. time lost from losing the cached data
 2) Analysis of which warehouse size is best suited to each query (smaller isn't always cheaper) scale out v.s scale up
