@@ -7,7 +7,7 @@ from urllib.error import URLError
 import altair as alt
 from connection import init_connection, run_query
 
-conn = init_connection()
+conn = st.session_state['conn']
 
 #============================= PAGE STARTS =================================
 
