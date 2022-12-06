@@ -55,6 +55,10 @@ as well as recomendaions for parameter changes within snowflake that aim to maxi
 efficiency.
 
 This page will look at:
+
+- Warehouse monitoring
+- Task monitoring
+- Snowpipe monitoring
 '''
 )
 
