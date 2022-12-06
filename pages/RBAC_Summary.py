@@ -37,8 +37,9 @@ rounded_credits = round(credits, 5)
 st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
 
 snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
-columns=['Database', 'Schema', 'Role', 'Session', 'User', 'Warehouse', 'Region', 'Time'])
-transposed_session_variables_df = snowflake_session_variables_df.transpose()
+columns=['Database', 'Schema', 'Current role', 'Session ID', 'Current user', 'Warehouse', 'Region', 'Region time'])
+transposed_session_variables_df = snowflake_session_variables_df.transpose().reset_index()
+transposed_session_variables_df = transposed_session_variables_df.rename(columns={"index": "Session Parameter", 0: "Value"})
 st.sidebar.dataframe(transposed_session_variables_df)
 
 #------------------------------- SIDEBAR ----------------------------------- 
