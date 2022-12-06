@@ -70,7 +70,12 @@ with open("pages/style/style.css") as f:
             FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY'''
         )
 
-    st.selectbox('Select a user', users)
+        clean_users = []
+
+        for i in users:
+            clean_users.append(i[0])
+        
+    st.selectbox('Select a user', clean_users)
 
 
     with st.spinner('Please wait, running your query...'):      
