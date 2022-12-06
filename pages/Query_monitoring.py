@@ -56,10 +56,10 @@ with open("pages/style/style.css") as f:
     )
 
     ### GET WAREHOUSE NAMES ###
-    names = run_query("select name from metering_history;")
-    names = pd.DataFrame(names, columns=['Warehouse Name'])
-    names = names.set_index('Warehouse Name')
-    wh_selected = st.multiselect("Pick Warehouse:", list(names.index),['COMPUTE_WH'])
+    # names = run_query("select name from metering_history;")
+    # names = pd.DataFrame(names, columns=['Warehouse Name'])
+    # names = names.set_index('Warehouse Name')
+    # wh_selected = st.multiselect("Pick Warehouse:", list(names.index),['COMPUTE_WH'])
 
     ### Queries per user ###
 
@@ -68,19 +68,21 @@ with open("pages/style/style.css") as f:
         df = run_query(
                 '''
                 SELECT user_name
-                , schema_name
                 , avg(percentage_scanned_from_cache)
+                , avg(partitions_scanned)
+                , avg(partitions_total)
                 , avg(execution_time)
                 , avg(query_load_percent)
+                , avg(credits_used_cloud_services)
                 FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
-                GROUP BY user_name, schema_name
+                GROUP BY user_name
                 ORDER BY avg(execution_time) DESC;
                 '''
             )
 
-        df = pd.DataFrame(df, columns = ['User Name', 'Schema Name',
-                                    'Percent from cache', 'Execution time',
-                                    'Query load percent'])
+        df = pd.DataFrame(df, columns = ['User Name', 'Percent from cache', 'Avg Partitions Scanned',
+                                        'Avg Partitions Used', 'Execution time', 'Query load percent',
+                                        'Avg Credits by Cloud Services'])
 
         st.header('Useful Query History Data')
         st.dataframe(df)
