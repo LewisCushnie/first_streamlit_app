@@ -78,6 +78,7 @@ with open("pages/style/style.css") as f:
         ORDER BY start_time desc; 
         '''
     )
+    st.text(df)
     
     df = pd.DataFrame(df, columns = ['DB Name', 'Schema Name', 'Query Type', 
                                     'Username', 'Start', 'End', 'Warehouse Size',
