@@ -98,16 +98,16 @@ with open("pages/style/style.css") as f:
         df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
         df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
         df['Execution time'] = df['Execution time'].astype(float) 
-
         df = df.set_index('User Name')
         
     selected_username = st.multiselect('Select a user', clean_users)
-
-    df = df.loc[selected_username]                  
+       
+    df = df.loc[selected_username]                    
 
     st.header('Useful Query History Data')
-    st.dataframe(df)
-    st.bar_chart(data = df, x='User Name', y=['Execution time','Avg Partitions Scanned'])
+    if selected_username:
+        st.dataframe(df)
+        #st.bar_chart(data = df, x='User Name', y=['Execution time','Avg Partitions Scanned'])
 
     # most_expensive_queries = run_query(
     # '''
