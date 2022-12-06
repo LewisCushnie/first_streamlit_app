@@ -62,24 +62,28 @@ with open("pages/style/style.css") as f:
     wh_selected = st.multiselect("Pick Warehouse:", list(names.index),['COMPUTE_WH'])
 
     ### Queries per user ###
-    df = run_query(
-        '''
-        SELECT database_name
-        , schema_name
-        , query_type
-        , user_name
-        , start_time
-        , end_time
-        , warehouse_size
-        , percentage_scanned_from_cache
-        , execution_time
-        , query_load_percent
-        FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
-        ORDER BY start_time desc; 
-        '''
-    )
+
+    with st.spinner('Please wait, running your query...'):
+   
+        df = run_query(
+            '''
+            SELECT database_name
+            , schema_name
+            , query_type
+            , user_name
+            , start_time
+            , end_time
+            , warehouse_size
+            , percentage_scanned_from_cache
+            , execution_time
+            , query_load_percent
+            FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
+            ORDER BY start_time desc; 
+            '''
+        )
+        
     st.text(df)
-    
+
     df = pd.DataFrame(df, columns = ['DB Name', 'Schema Name', 'Query Type', 
                                     'Username', 'Start', 'End', 'Warehouse Size',
                                     'Percent from cache', 'Execution time',
