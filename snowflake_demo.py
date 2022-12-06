@@ -41,7 +41,7 @@ columns=['Database', 'Schema', 'Role', 'Session', 'User', 'Warehouse', 'Region',
 transposed_session_variables_df = snowflake_session_variables_df.transpose()
 #.reset_index()
 # transposed_session_variables_df = transposed_session_variables_df.rename(columns={"index": "Session Parameter", 0: "Value"})
-# st.sidebar.dataframe(transposed_session_variables_df)
+st.sidebar.dataframe(transposed_session_variables_df)
 
 #------------------------------- SIDEBAR ----------------------------------- 
 
