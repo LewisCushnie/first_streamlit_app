@@ -75,7 +75,7 @@ with open("pages/style/style.css") as f:
         for i in users:
             clean_users.append(i[0])
         
-    st.selectbox('Select a user', clean_users)
+    selected_username = st.selectbox('Select a user', clean_users)
 
 
     with st.spinner('Please wait, running your query...'):      
@@ -102,7 +102,9 @@ with open("pages/style/style.css") as f:
         df['Percent from cache'] = df['Percent from cache'].astype(float)              
         df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
         df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
-        df['Execution time'] = df['Execution time'].astype(float)                       
+        df['Execution time'] = df['Execution time'].astype(float)  
+
+        df = df[df['User Name'] == selected_username]                     
 
         st.header('Useful Query History Data')
         st.dataframe(df)
