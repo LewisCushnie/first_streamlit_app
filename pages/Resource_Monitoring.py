@@ -86,7 +86,7 @@ with open("pages/style/style.css") as f:
     WH_to_show_df = metering_top_10_df.loc[wh_selected]
 
     # Display the filtered df on the page.
-    st.bar_chart(metering_top_10_df, height= 500)
+    st.bar_chart(wh_selected, height= 500)
 
     st.text('On/Off grid')
     col1, col2, col3 = st.columns(3)
