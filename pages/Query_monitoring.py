@@ -101,7 +101,7 @@ with open("pages/style/style.css") as f:
         
     selected_username = st.multiselect('Select a user', clean_users)
 
-    df = df.loc[selected_username]                    
+    df = df[df['User Name'] == selected_username]                   
 
     st.header('Useful Query History Data')
     st.dataframe(df)
