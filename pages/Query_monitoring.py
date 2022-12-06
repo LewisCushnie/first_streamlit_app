@@ -55,6 +55,8 @@ with open("pages/style/style.css") as f:
     optimise caching and warehouse compute'''
     )
 
+    st.header("Most expensive queries:")
+
     most_expensive_queries = run_query(
     '''
     select top 10 query_id
@@ -71,10 +73,10 @@ with open("pages/style/style.css") as f:
     #most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
     most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'] = most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'].astype(float)
     most_expensive_queries_df['MINUTES_TO_COMPLETE'] = most_expensive_queries_df['MINUTES_TO_COMPLETE'].astype(float)
-    st.header("Queries Summary:")
     st.dataframe(most_expensive_queries_df)
 
-    st.header('most recent queries')
+    st.header('Most recent queries')
+
     most_recent_queries = run_query(
     '''
     select top 15 query_id
@@ -85,7 +87,6 @@ with open("pages/style/style.css") as f:
     )
 
     # Convert to pandas dataframe
-    most_expensive_queries_df = pd.DataFrame(most_recent_queries, columns=['id','text','time', 'tag'])
+    most_recent_queries_df = pd.DataFrame(most_recent_queries, columns=['Query id','Text','Time', 'Tag'])
     #most_expensive_queries_df = most_expensive_queries_df.set_index('CREDITS_USED_CLOUD_SERVICES')
-    st.header("Queries Summary:")
-    st.dataframe(most_expensive_queries_df)
+    st.dataframe(most_recent_queries_df)
