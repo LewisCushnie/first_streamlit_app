@@ -65,9 +65,12 @@ with open("pages/style/style.css") as f:
     '''
     )
 
-    metering_history = run_query("select name, credits_used from metering_history;")
     st.header("Metering Summary:")
+
+    metering_history = run_query("select name, credits_used from metering_history;")
     st.dataframe(metering_history)
+
+    st.header('Warehouse credit usage')
 
     # Get top 10 warehouses with most credit usage
     metering_top_10 = run_query("select top 10 name, sum(credits_used) from metering_history group by name;")
@@ -77,15 +80,13 @@ with open("pages/style/style.css") as f:
     metering_top_10_df = metering_top_10_df.set_index('WH_Name')
     metering_top_10_df['Credits Used'] = metering_top_10_df['Credits Used'].astype(float)
 
-    st.header('Warehouse credit usage')
-
     # Multiselect list
     wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
     # filter using panda's .loc
     WH_to_show_df = metering_top_10_df.loc[wh_selected]
 
     # Display the filtered df on the page.
-    st.bar_chart(WH_to_show_df, height= 500)
+    st.bar_chart(wh_selected, height= 500)
 
     st.text('On/Off grid')
     col1, col2, col3 = st.columns(3)
