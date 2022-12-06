@@ -76,7 +76,7 @@ with open("pages/style/style.css") as f:
                 , avg(credits_used_cloud_services)
                 FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
                 GROUP BY user_name
-                ORDER BY avg(execution_time) DESC;
+                ORDER BY avg(partitions_total) DESC;
                 '''
             )
 
