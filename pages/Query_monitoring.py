@@ -91,7 +91,7 @@ with open("pages/style/style.css") as f:
 
         st.header('Useful Query History Data')
         st.dataframe(df)
-        st.bar_chart(data = df, x='User Name', y=['Execution time','Avg Paritions Scanned'])
+        st.bar_chart(data = df, x='User Name', y=['Execution time','Avg Partions Scanned'])
 
     # most_expensive_queries = run_query(
     # '''
