@@ -39,8 +39,9 @@ rounded_credits = round(credits, 5)
 st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
 
 snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
-columns=['Database', 'Schema', 'Current role', 'Session ID', 'User', 'Warehouse', 'Region', 'Region time'])
-transposed_session_variables_df = snowflake_session_variables_df.transpose()
+columns=['Database', 'Schema', 'Current role', 'Session ID', 'Current user', 'Warehouse', 'Region', 'Region time'])
+transposed_session_variables_df = snowflake_session_variables_df.transpose().reset_index()
+transposed_session_variables_df = transposed_session_variables_df.rename(columns={"index": "Session Parameter", 0: "Value"})
 st.sidebar.dataframe(transposed_session_variables_df)
 
 #------------------------------- SIDEBAR ----------------------------------- 
@@ -86,7 +87,7 @@ with open("pages/style/style.css") as f:
     WH_to_show_df = metering_top_10_df.loc[wh_selected]
 
     # Display the filtered df on the page.
-    st.bar_chart(wh_selected, height= 500)
+    st.bar_chart(WH_to_show_df, height= 500)
 
     st.text('On/Off grid')
     col1, col2, col3 = st.columns(3)
