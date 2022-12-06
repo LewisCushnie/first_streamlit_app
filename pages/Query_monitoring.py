@@ -5,7 +5,7 @@ import snowflake.connector
 from urllib.error import URLError
 from connection import init_connection, run_query
 
-conn = init_connection()
+conn = st.session_state['conn']
 
 #============================= PAGE STARTS =================================
 
@@ -45,7 +45,7 @@ st.sidebar.dataframe(transposed_session_variables_df)
 
 with open("pages/style/style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-    
+
     st.title('Query Monitoring')
 
     most_expensive_queries = run_query(
