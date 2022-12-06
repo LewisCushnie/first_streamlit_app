@@ -5,7 +5,7 @@ import snowflake.connector
 from urllib.error import URLError
 from connection import init_connection, run_query
 
-conn = init_connection()
+conn = st.session_state['conn']
 
 #============================= PAGE STARTS =================================
 
