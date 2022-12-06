@@ -66,24 +66,19 @@ with open("pages/style/style.css") as f:
     with st.spinner('Please wait, running your query...'):
    
         df = run_query(
-            '''
-            SELECT database_name
-            , schema_name
-            , query_type
-            , user_name
-            , start_time
-            , end_time
-            , warehouse_size
-            , percentage_scanned_from_cache
-            , execution_time
-            , query_load_percent
-            FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
-            ORDER BY start_time desc; 
-            '''
-        )
+                '''
+                SELECT user_name
+                , schema_name
+                , avg(percentage_scanned_from_cache)
+                , avg(execution_time)
+                , avg(query_load_percent)
+                FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
+                GROUP BY user_name, schema_name
+                ORDER BY avg(execution_time) DESC;
+                '''
+            )
 
-        df = pd.DataFrame(df, columns = ['DB Name', 'Schema Name', 'Query Type', 
-                                    'Username', 'Start', 'End', 'Warehouse Size',
+        df = pd.DataFrame(df, columns = ['User Name', 'Schema Name',
                                     'Percent from cache', 'Execution time',
                                     'Query load percent'])
 
