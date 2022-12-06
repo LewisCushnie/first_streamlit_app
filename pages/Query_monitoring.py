@@ -75,7 +75,7 @@ with open("pages/style/style.css") as f:
         for i in users:
             clean_users.append(i[0])
         
-    selected_username = st.selectbox('Select a user', clean_users)
+    selected_username = st.multiselect('Select a user', clean_users)
 
 
     with st.spinner('Please wait, running your query...'):      
