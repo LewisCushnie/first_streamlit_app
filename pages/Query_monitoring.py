@@ -75,6 +75,14 @@ with open("pages/style/style.css") as f:
     most_expensive_queries_df['MINUTES_TO_COMPLETE'] = most_expensive_queries_df['MINUTES_TO_COMPLETE'].astype(float)
     st.dataframe(most_expensive_queries_df)
 
+    # # Multiselect list
+    # wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
+    # # filter using panda's .loc
+    # WH_to_show_df = metering_top_10_df.loc[wh_selected]
+
+    # # Display the filtered df on the page.
+    st.bar_chart(x= most_expensive_queries_df['QUERY_ID'], y= most_expensive_queries_df['CREDITS_USED_CLOUD_SERVICES'], height= 500)
+
     st.header('Most recent queries')
 
     most_recent_queries = run_query(
