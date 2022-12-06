@@ -66,11 +66,12 @@ with open("pages/style/style.css") as f:
     with st.spinner('Please wait, running your query...'):
 
         users = run_query(
-            ''' SELECT distinc(user_name)
+            ''' SELECT distinct(user_name)
             FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY'''
         )
 
-    st.write(users)
+    st.selectbox('Select a user', users)
+
 
     with st.spinner('Please wait, running your query...'):      
    
