@@ -48,6 +48,12 @@ with open("pages/style/style.css") as f:
 
     st.title('Query Monitoring')
 
+    st.markdown(
+    '''The **Query Monitoring** page aims to show a breakdown and analysis of frequently called 
+    and most expensive queries. The aim is to allow business domains and users to track query history and 
+    optimise caching and warehouse compute'''
+    )
+
     most_expensive_queries = run_query(
     '''
     select top 10 query_id
