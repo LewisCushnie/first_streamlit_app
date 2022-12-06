@@ -82,6 +82,7 @@ with open("pages/style/style.css") as f:
 
     # # Display the filtered df on the page.
     most_expensive_bar_df = most_expensive_queries_df[['QUERY_ID', 'CREDITS_USED_CLOUD_SERVICES']]
+    most_expensive_bar_df['CREDITS_USED_CLOUD_SERVICES'] = most_expensive_bar_df['CREDITS_USED_CLOUD_SERVICES'].astype(float)
     st.bar_chart(most_expensive_bar_df, height= 500)
 
     st.header('Most recent queries')
