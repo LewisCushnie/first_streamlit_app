@@ -44,54 +44,54 @@ st.sidebar.dataframe(transposed_session_variables_df)
 
 #------------------------------- Main Page ----------------------------------- 
 
-# with open("pages/style/style.css") as f:
-#     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+with open("pages/style/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.title('Query Monitoring')
+    st.title('Query Monitoring')
 
-st.markdown(
-'''The **Query Monitoring** page aims to show a breakdown and analysis of frequently called 
-and most expensive queries. The aim is to allow business domains and users to track query history and 
-optimise caching and warehouse compute'''
-)
+    st.markdown(
+    '''The **Query Monitoring** page aims to show a breakdown and analysis of frequently called 
+    and most expensive queries. The aim is to allow business domains and users to track query history and 
+    optimise caching and warehouse compute'''
+    )
 
-### GET WAREHOUSE NAMES ###
-# names = run_query("select name from metering_history;")
-# names = pd.DataFrame(names, columns=['Warehouse Name'])
-# names = names.set_index('Warehouse Name')
-# wh_selected = st.multiselect("Pick Warehouse:", list(names.index),['COMPUTE_WH'])
+    ### GET WAREHOUSE NAMES ###
+    # names = run_query("select name from metering_history;")
+    # names = pd.DataFrame(names, columns=['Warehouse Name'])
+    # names = names.set_index('Warehouse Name')
+    # wh_selected = st.multiselect("Pick Warehouse:", list(names.index),['COMPUTE_WH'])
 
-### Queries per user ###
+    ### Queries per user ###
 
-with st.spinner('Please wait, running your query...'):
+    with st.spinner('Please wait, running your query...'):
+   
+        df = run_query(
+                '''
+                SELECT user_name
+                , avg(percentage_scanned_from_cache)
+                , avg(partitions_scanned)
+                , avg(partitions_total)
+                , avg(execution_time)
+                , avg(query_load_percent)
+                , avg(credits_used_cloud_services)
+                FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
+                GROUP BY user_name
+                ORDER BY avg(partitions_total) DESC;
+                '''
+            )
 
-    df = run_query(
-            '''
-            SELECT user_name
-            , avg(percentage_scanned_from_cache)
-            , avg(partitions_scanned)
-            , avg(partitions_total)
-            , avg(execution_time)
-            , avg(query_load_percent)
-            , avg(credits_used_cloud_services)
-            FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY 
-            GROUP BY user_name
-            ORDER BY avg(partitions_total) DESC;
-            '''
-        )
+        df = pd.DataFrame(df, columns = ['User Name', 'Percent from cache', 'Avg Partitions Scanned',
+                                        'Avg Partitions Used', 'Execution time', 'Query load percent',
+                                        'Avg Credits by Cloud Services'])
 
-    df = pd.DataFrame(df, columns = ['User Name', 'Percent from cache', 'Avg Partitions Scanned',
-                                    'Avg Partitions Used', 'Execution time', 'Query load percent',
-                                    'Avg Credits by Cloud Services'])
+        df['Percent from cache'] = df['Percent from cache'].astype(float)              
+        df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
+        df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
+        df['Execution time'] = df['Execution time'].astype(float)                       
 
-    df['Percent from cache'] = df['Percent from cache'].astype(float)              
-    df['Avg Partitions Scanned'] = df['Avg Partitions Scanned'].astype(float)     
-    df['Avg Partitions Used'] = df['Avg Partitions Used'].astype(float)     
-    df['Execution time'] = df['Execution time'].astype(float)                       
-
-    st.header('Useful Query History Data')
-    st.dataframe(df)
-    st.bar_chart(data = df, x='User Name', y='Execution time')
+        st.header('Useful Query History Data')
+        st.dataframe(df)
+        st.bar_chart(data = df, x='User Name', y='Execution time')
 
     # most_expensive_queries = run_query(
     # '''
