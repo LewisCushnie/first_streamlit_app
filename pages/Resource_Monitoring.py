@@ -83,10 +83,10 @@ with open("pages/style/style.css") as f:
     # Multiselect list
     wh_selected = st.multiselect("Pick Warehouse:", list(metering_top_10_df.index),['COMPUTE_WH', 'CADENS_WH', 'INTL_WH'])
     # filter using panda's .loc
-    WH_to_show_df = metering_top_10_df.loc[metering_top_10_df]
+    WH_to_show_df = metering_top_10_df.loc[wh_selected]
 
     # Display the filtered df on the page.
-    st.bar_chart(WH_to_show_df, height= 500)
+    st.bar_chart(metering_top_10_df, height= 500)
 
     st.text('On/Off grid')
     col1, col2, col3 = st.columns(3)
