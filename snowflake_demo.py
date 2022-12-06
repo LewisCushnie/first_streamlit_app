@@ -46,6 +46,27 @@ st.sidebar.dataframe(transposed_session_variables_df)
 
 st.title('Snowflake Connectivity Demo')
 
+st.markdown(
+"""
+Features to add:
+- Warehouse usage tracker
+- Warehouse on/off grid
+- Task tracker
+- Task on/off grid
+- Snowpipe tracker
+- Snowpipe on/off grid
+- Role > privelages display
+- Most expensive query history
+
+Cost analysis:
+- Cost saving of stopping warehouse via autosuspend v.s. time lost from losing the cached data
+- Analysis of which warehouse size is best suited to each query (smaller isn't always cheaper) scale out v.s scale up
+- See slide 662 in snowflake notes, there are lots of things that could be monitored to help keep costs down
+- How to determine the most expensive queries from the last 30 days
+- How to determine the top 10 queries with the most spillage to remote storage
+"""
+)
+
 all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
 st.header("Roles Summary:")
 st.dataframe(all_RBAC_roles)
