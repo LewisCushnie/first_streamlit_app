@@ -39,7 +39,7 @@ st.sidebar.metric("Credits used from streamlit queries", rounded_credits)
 snowflake_session_variables_df = pd.DataFrame(snowflake_session_variables, 
 columns=['Database', 'Schema', 'Role', 'Session', 'User', 'Warehouse', 'Region', 'Time'])
 transposed_session_variables_df = snowflake_session_variables_df.transpose().reset_index()
-transposed_session_variables_df = transposed_session_variables_df.rename(columns={"index": "Session Parameter", "0": "Value"})
+transposed_session_variables_df = transposed_session_variables_df.rename(columns={"index": "Session Parameter", 0: "Value"})
 #transposed_session_variables_df = transposed_session_variables_df.set_index('Session Parameter')
 st.sidebar.dataframe(transposed_session_variables_df)
 
