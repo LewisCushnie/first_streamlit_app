@@ -45,25 +45,28 @@ st.sidebar.dataframe(transposed_session_variables_df)
 
 #------------------------------- SIDEBAR ----------------------------------- 
 
-st.title('Snowflake Connectivity Demo')
+with open("pages/style/style.css") as f:
+  st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-st.markdown(
-"""
-Features to add:
-- Warehouse usage tracker
-- Warehouse on/off grid
-- Task tracker
-- Task on/off grid
-- Snowpipe tracker
-- Snowpipe on/off grid
-- Role > privelages display
-- Most expensive query history
+  st.title('Snowflake Connectivity Demo')
 
-Cost analysis:
-- Cost saving of stopping warehouse via autosuspend v.s. time lost from losing the cached data
-- Analysis of which warehouse size is best suited to each query (smaller isn't always cheaper) scale out v.s scale up
-- See slide 662 in snowflake notes, there are lots of things that could be monitored to help keep costs down
-- How to determine the most expensive queries from the last 30 days
-- How to determine the top 10 queries with the most spillage to remote storage
-"""
-)
+  st.markdown(
+  """
+  Features to add:
+  - Warehouse usage tracker
+  - Warehouse on/off grid
+  - Task tracker
+  - Task on/off grid
+  - Snowpipe tracker
+  - Snowpipe on/off grid
+  - Role > privelages display
+  - Most expensive query history
+
+  Cost analysis:
+  - Cost saving of stopping warehouse via autosuspend v.s. time lost from losing the cached data
+  - Analysis of which warehouse size is best suited to each query (smaller isn't always cheaper) scale out v.s scale up
+  - See slide 662 in snowflake notes, there are lots of things that could be monitored to help keep costs down
+  - How to determine the most expensive queries from the last 30 days
+  - How to determine the top 10 queries with the most spillage to remote storage
+  """
+  )

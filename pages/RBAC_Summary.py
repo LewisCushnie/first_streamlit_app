@@ -43,8 +43,11 @@ st.sidebar.dataframe(transposed_session_variables_df)
 
 #------------------------------- SIDEBAR ----------------------------------- 
 
-st.title('RBAC Roles Summary')
+with open("pages/style/style.css") as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
-st.header("Roles Summary:")
-st.dataframe(all_RBAC_roles)
+    st.title('RBAC Roles Summary')
+
+    all_RBAC_roles = run_query("select CREATED_ON, NAME, COMMENT, OWNER from roles;")
+    st.header("Roles Summary:")
+    st.dataframe(all_RBAC_roles)
